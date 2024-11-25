@@ -1,9 +1,10 @@
-import {Component, EventEmitter, Output} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { IconButtonComponent } from '../../../shared/icon-button/icon-button.component';
 
 @Component({
   selector: 'app-task-create',
-  imports: [FormsModule],
+  imports: [FormsModule, IconButtonComponent],
   templateUrl: './task-create.component.html',
   styleUrl: './task-create.component.scss',
 })
