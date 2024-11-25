@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { TaskCreateComponent } from './task-create/task-create.component';
 import { Task } from '../../interfaces/Task';
 import { TaskItemComponent } from './task-item/task-item.component';
+import { Router } from '@angular/router';
+import { Auth, signOut } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-tasks',
@@ -10,6 +12,8 @@ import { TaskItemComponent } from './task-item/task-item.component';
   styleUrl: './tasks.component.scss',
 })
 export class TasksComponent {
+  constructor(private auth: Auth, private router: Router) {}
+
   public readonly tasks: Task[] = [
     {
       id: 1,
@@ -46,5 +50,16 @@ export class TasksComponent {
 
   deleteTask(index: number) {
     this.tasks.splice(index, 1);
+  }
+
+  logout() {
+    signOut(this.auth)
+      .then(() => {
+        console.log('Déconnexion réussie');
+        this.router.navigate(['/login']);
+      })
+      .catch((error) => {
+        console.error('Erreur lors de la déconnexion', error);
+      });
   }
 }
