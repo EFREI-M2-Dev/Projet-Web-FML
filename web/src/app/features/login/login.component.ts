@@ -20,7 +20,7 @@ export class LoginComponent {
     signInWithEmailAndPassword(this.auth, this.email, this.password)
       .then(() => {
         const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/tasks';
-        this.router.navigate([returnUrl]); // Redirige vers la page initialement demandée ou par défaut
+        this.router.navigate([returnUrl]);
       })
       .catch(error => {
         console.error('Erreur de connexion', error);
