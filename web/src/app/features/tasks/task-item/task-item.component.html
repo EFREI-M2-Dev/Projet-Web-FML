@@ -1,6 +1,32 @@
 <div class="task-item" [class.completed]="task.completed">
-  <input type="checkbox" [checked]="task.completed" (change)="toggleTask()" />
-  {{ task.text }}
-  <button (click)="onEdit()">Éditer</button>
-  <button (click)="deleteTask()">Supprimer</button>
+  <input type="checkbox" [id]="'checkbox-' + task.id" [checked]="task.completed" (change)="toggleTask()"/>
+
+  <label class="task-item__content"  [for]="'checkbox-' + task.id">
+    <div class="task-item__text">
+      <h3>
+        {{ task.text }}
+      </h3>
+      <p>
+        Description
+      </p>
+    </div>
+
+    <button (click)="onEdit()" class="task-item__content__edit">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M14.059 9.02L14.979 9.94L5.91902 19H4.99902V18.08L14.059 9.02ZM17.659 3C17.409 3 17.149 3.1 16.959 3.29L15.129 5.12L18.879 8.87L20.709 7.04C21.099 6.65 21.099 6.02 20.709 5.63L18.369 3.29C18.169 3.09 17.919 3 17.659 3ZM14.059 6.19L2.99902 17.25V21H6.74902L17.809 9.94L14.059 6.19Z"
+          fill="black"/>
+      </svg>
+    </button>
+  </label>
+
+  <button (click)="deleteTask()" class="task-item__delete">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M14.75 10.25V17.75H13.25V10.25H14.75Z" fill="black"/>
+      <path d="M10.75 17.75V10.25H9.25V17.75H10.75Z" fill="black"/>²
+      <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M16.75 2.25H7.25V6.25H3V7.75H5.25V21.75H18.75V7.75H21V6.25H16.75V2.25ZM15.25 6.25V3.75H8.75V6.25H15.25ZM6.75 7.75V20.25H17.25V7.75H6.75Z"
+            fill="black"/>
+    </svg>
+  </button>
 </div>
