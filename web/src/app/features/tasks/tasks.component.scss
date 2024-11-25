@@ -5,6 +5,9 @@
 
   button {
     padding: .4rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
     svg {
       vertical-align: bottom;
       path{
@@ -23,12 +26,18 @@
 
 .task-list{
   height: 100vh;
-  width: 512px;
+  width: 876px;
   margin: auto;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  &__header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
   &__content{
     width: 100%;
