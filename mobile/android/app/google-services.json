@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1084178538565",
+    "project_id": "test-c9086",
+    "storage_bucket": "test-c9086.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084178538565:android:fc05a870c81b87780e432c",
+        "android_client_info": {
+          "package_name": "com.taskit.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSxLM4eGY_PL6i_AjCcy8BsNcnpWTAb_M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
