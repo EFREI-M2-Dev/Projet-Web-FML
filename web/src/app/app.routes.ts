@@ -12,5 +12,5 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/tasks/tasks.component').then((c) => c.TasksComponent),
   },
-  //   { path: '**', redirectTo: '/login' },
+  { path: '**', redirectTo: '' },
 ];
