@@ -1,1 +1,7 @@
 <p>tasks works!</p>
+
+<app-task-create></app-task-create>
+
+@for (task of tasks; track $index) {
+    <p>{{task.name}} - {{task.done}} </p>
+}
