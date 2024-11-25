@@ -7,5 +7,18 @@
       (keyup.enter)="addTask()"
     />
     -->
+    <button (click)="openModal()">Ajouter</button>
+  </div>
+
+
+<div class="add-task__modal">
+  <div class="add-task__modal__content">
+    <h2>Ajouter une tâche</h2>
+    <input
+      type="text"
+      [(ngModel)]="newTask"
+      placeholder="Ajouter une nouvelle tâche"
+    />
     <button (click)="addTask()">Ajouter</button>
   </div>
+</div>
