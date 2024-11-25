@@ -1,13 +1,13 @@
-<div class="task-item" [class.completed]="task.completed">
-  <input type="checkbox" [id]="'checkbox-' + task.id" [checked]="task.completed" (change)="toggleTask()"/>
+<div class="task-item" [class.completed]="task.done">
+  <input type="checkbox" [id]="'checkbox-' + task.id" [checked]="task.done" (change)="toggleTask()"/>
 
   <label class="task-item__content"  [for]="'checkbox-' + task.id">
     <div class="task-item__text">
       <h3>
-        {{ task.text }}
+        {{ task.title }}
       </h3>
       <p>
-        Description
+        {{ task.description }}
       </p>
 
       <p class="task-item--date">

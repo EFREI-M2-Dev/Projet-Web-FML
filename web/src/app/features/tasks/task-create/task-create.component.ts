@@ -8,13 +8,17 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './task-create.component.scss',
 })
 export class TaskCreateComponent {
-  newTask: string = '';
-  @Output() taskAdded = new EventEmitter<string>();
+  newTask = { title: 'Test1', description: 'Test2', atDate: new Date() };
+  @Output() taskAdded = new EventEmitter<{
+    title: string;
+    description: string;
+    atDate: Date;
+  }>();
 
   addTask() {
-    if (this.newTask.trim()) {
+    if (this.newTask.title.trim() && this.newTask.description.trim()) {
       this.taskAdded.emit(this.newTask);
-      this.newTask = ''; 
+      this.newTask = { title: '', description: '', atDate: new Date() };
     }
   }
 }
