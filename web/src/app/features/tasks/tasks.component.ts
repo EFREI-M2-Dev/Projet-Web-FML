@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TaskCreateComponent } from './task-create/task-create.component';
 import { Task } from '../../interfaces/Task';
-import { TaskItemComponent } from "./task-item/task-item.component";
+import { TaskItemComponent } from './task-item/task-item.component';
 
 @Component({
   selector: 'app-tasks',
@@ -12,10 +12,12 @@ import { TaskItemComponent } from "./task-item/task-item.component";
 export class TasksComponent {
   public readonly tasks: Task[] = [
     {
+      id: 1,
       text: 'Test 1',
       completed: false,
     },
     {
+      id: 2,
       text: 'Test 2',
       completed: true,
     },
@@ -23,12 +25,23 @@ export class TasksComponent {
 
   addTask(newTask: string) {
     if (newTask.trim()) {
-      this.tasks.push({ text: newTask, completed: false });
+      this.tasks.push({
+        id: this.tasks.length + 1,
+        text: newTask,
+        completed: false,
+      });
     }
   }
 
   toggleComplete(task: Task) {
     task.completed = !task.completed;
+  }
+
+  editTask(task: Task) {
+    const newName = prompt('Edit Task Name:', task.text);
+    if (newName !== null && newName !== '') {
+      task.text = newName;
+    }
   }
 
   deleteTask(index: number) {
