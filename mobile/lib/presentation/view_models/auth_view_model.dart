@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthViewModel extends ChangeNotifier {
@@ -15,6 +14,7 @@ class AuthViewModel extends ChangeNotifier {
       );
       notifyListeners();
     } catch (e) {
+      print(e.toString());
       throw Exception(e.toString());
     }
   }
