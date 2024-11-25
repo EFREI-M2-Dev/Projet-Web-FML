@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:TaskIt/presentation/view_models/home_view_model.dart';
@@ -62,19 +61,75 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemCount: tasks.length,
                     itemBuilder: (context, index) {
                       final task = tasks[index];
+                      final isDone = task['done'] ?? false;
+
                       return Card(
                         margin: const EdgeInsets.symmetric(vertical: 8.0),
                         child: ListTile(
-                          title: Text(task['title'] ?? 'No Title'),
+                          leading: Checkbox(
+                            value: isDone,
+                            onChanged: (value) async {
+                              try {
+                                await homeViewModel.toggleTaskState(
+                                    task['id'], isDone);
+                              } catch (e) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('Failed to update task: $e'),
+                                  ),
+                                );
+                              }
+                            },
+                          ),
+                          title: Text(
+                            task['title'] ?? 'No Title',
+                            style: TextStyle(
+                              decoration: isDone
+                                  ? TextDecoration.lineThrough
+                                  : TextDecoration.none,
+                              color: isDone ? Colors.grey : Colors.black,
+                            ),
+                          ),
                           subtitle:
                               Text(task['description'] ?? 'No Description'),
                           trailing: IconButton(
                             icon: Icon(Icons.delete, color: Colors.red),
                             onPressed: () async {
-                              await FirebaseFirestore.instance
-                                  .collection('tasks')
-                                  .doc(task['id'])
-                                  .delete();
+                              final confirm = await showDialog<bool>(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text('Delete Task'),
+                                    content: Text(
+                                        'Are you sure you want to delete this task?'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.of(context).pop(false),
+                                        child: Text('Cancel'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.of(context).pop(true),
+                                        child: Text('Delete'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+
+                              if (confirm == true) {
+                                try {
+                                  await homeViewModel.deleteTask(task['id']);
+                                } catch (e) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content:
+                                          Text('Failed to delete task: $e'),
+                                    ),
+                                  );
+                                }
+                              }
                             },
                           ),
                         ),
