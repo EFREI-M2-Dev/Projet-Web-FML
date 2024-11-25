@@ -9,7 +9,7 @@ import {
   query,
   where,
 } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Task } from '../../interfaces/Task';
 
 @Injectable({
@@ -31,9 +31,14 @@ export class TaskService {
       this.tasksCollection,
       where('userUID', '==', userUID)
     );
-    return collectionData(userTasksQuery, { idField: 'id' }) as Observable<
-      Task[]
-    >;
+    return collectionData(userTasksQuery, { idField: 'id' }).pipe(
+      map((tasks: any[]) =>
+        tasks.map((task) => ({
+          ...task,
+          atDate: task.atDate.toDate(),
+        }))
+      )
+    ) as Observable<Task[]>;
   }
 
   deleteTask(id: string): Promise<void> {
