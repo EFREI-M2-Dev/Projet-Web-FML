@@ -23,4 +23,22 @@ class HomeViewModel with ChangeNotifier {
       }).toList();
     });
   }
+
+  Future<void> toggleTaskState(String taskId, bool currentState) async {
+    try {
+      await FirebaseFirestore.instance.collection('tasks').doc(taskId).update({
+        'done': !currentState,
+      });
+    } catch (e) {
+      throw Exception('Failed to update task state: $e');
+    }
+  }
+
+  Future<void> deleteTask(String taskId) async {
+    try {
+      await FirebaseFirestore.instance.collection('tasks').doc(taskId).delete();
+    } catch (e) {
+      throw Exception('Failed to delete task: $e');
+    }
+  }
 }
