@@ -1,4 +1,4 @@
-import 'package:TaskIt/presentation/view_models/register_view_model.dart';
+import 'package:TaskIt/presentation/view_models/auth_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
