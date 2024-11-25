@@ -7,10 +7,11 @@ import { Auth, signOut } from '@angular/fire/auth';
 import { TaskService } from '../../core/services/task.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { IconButtonComponent } from '../../shared/icon-button/icon-button.component';
 
 @Component({
   selector: 'app-tasks',
-  imports: [TaskCreateComponent, TaskItemComponent, CommonModule],
+  imports: [TaskCreateComponent, TaskItemComponent, IconButtonComponent, CommonModule],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.scss',
 })
