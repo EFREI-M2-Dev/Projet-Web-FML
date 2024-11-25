@@ -1,0 +1,22 @@
+.header{
+  background-color: #fbdfa1;
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  border-radius: 0 0 60px 60px;
+  margin: auto auto 2rem;
+  position: fixed;
+  width: 100vw;
+  box-sizing: border-box;
+
+  &__title{
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 2rem;
+    font-weight: 600;
+    font-family: "Poppins", sans-serif;
+    color: var(--red);
+    align-items: center;
+  }
+}

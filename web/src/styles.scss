@@ -1,1 +1,113 @@
 /* You can add global styles to this file, and also import other style files */
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+html, body{
+  background-color: #fff4ea;
+}
+
+:root{
+  --red: #C96868;
+  --white: #fff;
+  --black: #444343;
+}
+
+*::selection{
+  background-color: var(--red);
+  color: var(--white);
+}
+
+
+.form-group{
+  display: flex;
+  flex-direction: column;
+  font-family: "Poppins", sans-serif;
+  align-items: flex-start;
+  font-size: 1rem;
+  font-weight: 500;
+  width: 100%;
+
+  input{
+    width: 100%;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: "Kanit", sans-serif;
+    font-size: 1rem;
+    box-sizing: border-box;
+
+    &:focus{
+      outline: none;
+      border-color: var(--red);
+    }
+  }
+}
+
+
+.btn{
+  display: inline-block;
+  background-color: var(--red );
+  padding: 1rem;
+  color: var(--white);
+  border-radius: 10px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  width: 100%;
+  transition: all .3s ease-in-out;
+  cursor: pointer;
+  border: 2px solid var(--red);
+  font-size: 1rem;
+
+  &:hover{
+    background-color: var(--white);
+    color: var(--red);
+    border-color: var(--red);
+  }
+}
