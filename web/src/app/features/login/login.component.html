@@ -1,7 +1,7 @@
 <div class="login">
   <div class="login__container">
     <h2>Connexion</h2>
-    <form>
+    <form (ngSubmit)="login()">
       <div class="form-group">
         <label for="email">Email</label>
         <input
@@ -26,7 +26,6 @@
           required
         />
       </div>
-      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
       <button type="submit" class="btn btn-primary">Se connecter</button>
     </form>
   </div>
