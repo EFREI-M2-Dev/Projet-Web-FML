@@ -4,52 +4,50 @@ import { Task } from '../../interfaces/Task';
 import { TaskItemComponent } from './task-item/task-item.component';
 import { Router } from '@angular/router';
 import { Auth, signOut } from '@angular/fire/auth';
+import { TaskService } from '../../core/services/task.service';
+import { Observable } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-tasks',
-  imports: [TaskCreateComponent, TaskItemComponent],
+  imports: [TaskCreateComponent, TaskItemComponent, CommonModule],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.scss',
 })
 export class TasksComponent {
-  constructor(private auth: Auth, private router: Router) {}
+  public tasks$: Observable<Task[]>; 
 
-  public readonly tasks: Task[] = [
-    {
-      id: 1,
-      text: 'Test 1',
-      completed: false,
-    },
-    {
-      id: 2,
-      text: 'Test 2',
-      completed: true,
-    },
-  ];
+  constructor(
+    private taskService: TaskService,
+    private auth: Auth,
+    private router: Router
+  ) {
+    const user = this.auth.currentUser;
+    if (user) {
+      this.tasks$ = this.taskService.getTasks(user.uid);
+    } else {
+      this.tasks$ = new Observable(); 
+    }
+  }
 
-  addTask(newTask: string) {
-    if (newTask.trim()) {
-      this.tasks.push({
-        id: this.tasks.length + 1,
-        text: newTask,
-        completed: false,
+  addTask(newTask: { title: string; description: string; atDate: Date }) {
+    const user = this.auth.currentUser;
+    if (user) {
+      const task: Task = {
+        ...newTask,
+        done: false,
+        userUID: user.uid,
+      };
+      this.taskService.addTask(task).catch((error) => {
+        console.error('Erreur lors de l’ajout de la tâche :', error);
       });
     }
   }
 
-  toggleComplete(task: Task) {
-    task.completed = !task.completed;
-  }
-
-  editTask(task: Task) {
-    const newName = prompt('Edit Task Name:', task.text);
-    if (newName !== null && newName !== '') {
-      task.text = newName;
-    }
-  }
-
-  deleteTask(index: number) {
-    this.tasks.splice(index, 1);
+  deleteTask(taskId: string) {
+    this.taskService.deleteTask(taskId).catch((error) => {
+      console.error('Erreur lors de la suppression de la tâche :', error);
+    });
   }
 
   logout() {
@@ -59,7 +57,7 @@ export class TasksComponent {
         this.router.navigate(['/login']);
       })
       .catch((error) => {
-        console.error('Erreur lors de la déconnexion', error);
+        console.error('Erreur lors de la déconnexion :', error);
       });
   }
 }
