@@ -1,11 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-task-create',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './task-create.component.html',
-  styleUrl: './task-create.component.scss'
+  styleUrl: './task-create.component.scss',
 })
 export class TaskCreateComponent {
+  newTask: string = '';
+  @Output() taskAdded = new EventEmitter<string>();
 
+  addTask() {
+    if (this.newTask.trim()) {
+      this.taskAdded.emit(this.newTask);
+      this.newTask = ''; 
+    }
+  }
 }

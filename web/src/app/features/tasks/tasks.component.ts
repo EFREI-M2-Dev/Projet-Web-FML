@@ -12,12 +12,26 @@ import { TaskItemComponent } from "./task-item/task-item.component";
 export class TasksComponent {
   public readonly tasks: Task[] = [
     {
-      name: 'Test 1',
-      done: false,
+      text: 'Test 1',
+      completed: false,
     },
     {
-      name: 'Test 2',
-      done: true,
+      text: 'Test 2',
+      completed: true,
     },
   ];
+
+  addTask(newTask: string) {
+    if (newTask.trim()) {
+      this.tasks.push({ text: newTask, completed: false });
+    }
+  }
+
+  toggleComplete(task: Task) {
+    task.completed = !task.completed;
+  }
+
+  deleteTask(index: number) {
+    this.tasks.splice(index, 1);
+  }
 }

@@ -1,5 +1,17 @@
-<app-task-create></app-task-create>
+<div class="task-list-container">
+  <h2>Ma Liste de Tâches</h2>
 
-@for (task of tasks; track $index) {
-<app-task-item [task]="task"></app-task-item>
-}
+  <app-task-create (taskAdded)="addTask($event)"></app-task-create>
+
+  <ul class="task-list">
+    @for (task of tasks; track $index) {
+    <app-task-item
+      [task]="task"
+      [index]="$index"
+      (taskDeleted)="deleteTask($index)"
+      (taskToggled)="toggleComplete(task)"
+    >
+    </app-task-item>
+    }
+  </ul>
+</div>
