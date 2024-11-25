@@ -1,22 +1,39 @@
+.task-logout{
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
 
-.task-list-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f7f7f7;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  button {
+    padding: .4rem;
+    svg {
+      vertical-align: bottom;
+      path{
+        transition: all .2s ease-in-out;
+      }
+    }
+
+    &:hover{
+      svg path{
+        fill: var(--red);
+      }
+    }
   }
-  
-  h2 {
-    text-align: center;
-    font-family: Arial, sans-serif;
-    color: #333;
+}
+
+
+.task-list{
+  height: 100vh;
+  width: 512px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  &__content{
+    width: 100%;
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 15px;
   }
-  
-  ul.task-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
+}
