@@ -4,16 +4,16 @@ import { CanActivateFn, Router } from '@angular/router';
 import { take, map } from 'rxjs';
 
 export const authGuard: CanActivateFn = (route, state) => {
-  const auth = inject(Auth); // Injection du service Firebase Auth
-  const router = inject(Router); // Injection du Router pour rediriger si besoin
+  const auth = inject(Auth);
+  const router = inject(Router);
 
   return authState(auth).pipe(
-    take(1), // Prendre uniquement la première émission (authentification actuelle)
-    map(user => {
+    take(1),
+    map((user) => {
       if (user) {
-        return true; // Autorisé si l'utilisateur est connecté
+        return true;
       } else {
-        router.navigate(['/login'], { queryParams: { returnUrl: state.url } }); // Redirige vers login
+        router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
         return false;
       }
     })
