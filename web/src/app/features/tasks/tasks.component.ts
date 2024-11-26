@@ -5,18 +5,24 @@ import { TaskItemComponent } from './task-item/task-item.component';
 import { Router } from '@angular/router';
 import { Auth, signOut } from '@angular/fire/auth';
 import { TaskService } from '../../core/services/task.service';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { IconButtonComponent } from '../../shared/icon-button/icon-button.component';
 
 @Component({
   selector: 'app-tasks',
-  imports: [TaskCreateComponent, TaskItemComponent, IconButtonComponent, CommonModule],
+  imports: [
+    TaskCreateComponent,
+    TaskItemComponent,
+    IconButtonComponent,
+    CommonModule,
+  ],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.scss',
 })
 export class TasksComponent {
-  public tasks$: Observable<Task[]>; 
+  public completedTasks$: Observable<Task[]>; 
+  public pendingTasks$: Observable<Task[]>; 
 
   constructor(
     private taskService: TaskService,
@@ -25,21 +31,38 @@ export class TasksComponent {
   ) {
     const user = this.auth.currentUser;
     if (user) {
-      this.tasks$ = this.taskService.getTasks(user.uid);
+      const allTasks$ = this.taskService.getTasks(user.uid);
+
+      this.completedTasks$ = allTasks$.pipe(
+        map((tasks) => tasks.filter((task) => task.done))
+      );
+
+      this.pendingTasks$ = allTasks$.pipe(
+        map((tasks) => tasks.filter((task) => !task.done))
+      );
     } else {
-      this.tasks$ = new Observable(); 
+      this.completedTasks$ = new Observable();
+      this.pendingTasks$ = new Observable();
     }
   }
 
   toggleDone(task: Task) {
-    this.taskService.updateTask(task.id!, { done: !task.done }).catch((error) => {
-      console.error('Erreur lors de la mise à jour du statut de la tâche :', error);
-    });
+    this.taskService
+      .updateTask(task.id!, { done: !task.done })
+      .catch((error) => {
+        console.error(
+          'Erreur lors de la mise à jour du statut de la tâche :',
+          error
+        );
+      });
   }
 
   editTask(task: Task) {
     const newTitle = prompt('Modifier le titre de la tâche :', task.title);
-    const newDescription = prompt('Modifier la description de la tâche :', task.description);
+    const newDescription = prompt(
+      'Modifier la description de la tâche :',
+      task.description
+    );
 
     if (newTitle && newDescription) {
       this.taskService
