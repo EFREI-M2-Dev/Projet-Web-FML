@@ -83,10 +83,16 @@ html, body{
     font-family: "Kanit", sans-serif;
     font-size: 1rem;
     box-sizing: border-box;
+    border-radius: 40px;
 
     &:focus{
       outline: none;
       border-color: var(--red);
+    }
+
+    &::placeholder{
+      color: grey;
+      font-weight: 400;
     }
   }
 }
