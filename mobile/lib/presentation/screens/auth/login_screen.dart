@@ -1,5 +1,7 @@
+import 'package:TaskIt/presentation/components/header.dart';
 import 'package:TaskIt/presentation/view_models/auth_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -17,6 +19,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return Scaffold(
       backgroundColor: Color(0xFFfff4ea),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(80.0), // Adjust the height as needed
+        child: Header(), // Include the Header here
+      ),
       body: Center(
         child: SingleChildScrollView(
           child: Center(
@@ -24,8 +30,8 @@ class _LoginScreenState extends State<LoginScreen> {
               width: 400,
               padding: EdgeInsets.all(48.0),
               decoration: BoxDecoration(
-                color: Colors.white, // White background
-                borderRadius: BorderRadius.circular(15.0), // 15px border radius
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15.0),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -35,9 +41,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.only(bottom: 12.0),
                     child: Text(
                       "Connexion",
-                      style: TextStyle(
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.bold,
+                      style: GoogleFonts.poppins(
+                        textStyle: TextStyle(
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
@@ -46,25 +54,33 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: TextField(
                       controller: _emailController,
                       decoration: InputDecoration(
-                          border: OutlineInputBorder(), hintText: 'Email'),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(40.0),
+                        ),
+                        hintText: 'Email',
+                      ),
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 12.0),
                     child: TextField(
                       controller: _passwordController,
+
                       decoration: InputDecoration(
-                          border: OutlineInputBorder(), hintText: 'Password'),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40.0),
+                          ),
+                          hintText: 'Password'),
                       obscureText: true,
                     ),
                   ),
                   SizedBox(height: 10),
                   FilledButton(
-                    style:
-                    FilledButton.styleFrom(
+                    style: FilledButton.styleFrom(
                       minimumSize: Size(400.0, 50.0),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5.0))),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0)),
+                    ),
                     onPressed: () async {
                       try {
                         await authViewModel.login(

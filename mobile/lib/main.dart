@@ -9,6 +9,7 @@ import 'package:TaskIt/presentation/view_models/home_view_model.dart';
 import 'package:TaskIt/presentation/view_models/profile_view_model.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -37,13 +38,25 @@ class MyApp extends StatelessWidget {
       initialRoute: '/login',
       theme: ThemeData(
         textButtonTheme: TextButtonThemeData(
-          style: TextButton.styleFrom(foregroundColor: Color(0xFFC96868)),
+          style: TextButton.styleFrom(
+            foregroundColor: Color(0xFFC96868),
+            textStyle: GoogleFonts.poppins(
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
         filledButtonTheme: FilledButtonThemeData(
-            style: FilledButton.styleFrom(backgroundColor: Color(0xFFC96868))),
+          style: FilledButton.styleFrom(
+            backgroundColor: Color(0xFFC96868),
+            textStyle: GoogleFonts.poppins(
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
         inputDecorationTheme: InputDecorationTheme(
-          labelStyle: TextStyle(color: Color(0xFFC96868)),
+          hintStyle: GoogleFonts.kanit(color: Colors.black),
           focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(40.0),
             borderSide: BorderSide(color: Color(0xFFC96868)),
           ),
         ),
