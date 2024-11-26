@@ -16,15 +16,21 @@ dependencies:
   firebase_auth: ^5.3.3
   firebase_storage: ^12.3.6
   image_picker: ^1.1.2
+  flutter_svg: ^1.1.6
   cloud_firestore: ^5.5.0
   provider: ^6.1.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
 
 flutter:
   uses-material-design: true
   assets:
     - assets/pp_default.png
+    - assets/logo.svg
+
+
+platforms:
+  android:

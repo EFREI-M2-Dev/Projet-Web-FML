@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:TaskIt/presentation/view_models/add_task_view_model.dart';
 
 class AddTaskScreen extends StatelessWidget {
   final String? taskId;
 
-  const AddTaskScreen({Key? key, this.taskId}) : super(key: key);
+  const AddTaskScreen({super.key, this.taskId});
 
   @override
   Widget build(BuildContext context) {
@@ -129,10 +128,10 @@ class AddTaskScreen extends StatelessWidget {
                         );
                       }
                     },
-                    child: Text('Save Task'),
                     style: ElevatedButton.styleFrom(
                       minimumSize: Size(double.infinity, 50), // Large button
                     ),
+                    child: Text('Save Task'),
                   ),
                 ],
               );

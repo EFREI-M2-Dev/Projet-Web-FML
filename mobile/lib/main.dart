@@ -35,6 +35,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/login',
+      theme: ThemeData(
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(foregroundColor: Color(0xFFC96868)),
+        ),
+        filledButtonTheme: FilledButtonThemeData(
+            style: FilledButton.styleFrom(backgroundColor: Color(0xFFC96868))),
+        inputDecorationTheme: InputDecorationTheme(
+          labelStyle: TextStyle(color: Color(0xFFC96868)),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xFFC96868)),
+          ),
+        ),
+      ),
       onGenerateRoute: (settings) {
         switch (settings.name) {
           case '/add-task':
