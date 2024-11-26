@@ -1,3 +1,4 @@
+import 'package:TaskIt/presentation/components/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:TaskIt/presentation/view_models/home_view_model.dart';
@@ -19,6 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const Navbar(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
