@@ -12,7 +12,21 @@
     </div>
 
     <ul class="task-list__container">
-      @for (task of tasks$ | async; track $index) {
+      @for (task of pendingTasks$ | async; track $index) {
+        <app-task-item
+          [task]="task"
+          [index]="$index"
+          (taskDeleted)="deleteTask(task.id!)"
+          (taskToggled)="toggleDone($event)"
+          (edit)="editTask($event)"
+        >
+        </app-task-item>
+      }
+    </ul>
+
+    Done
+    <ul class="task-list__container">
+      @for (task of completedTasks$ | async; track $index) {
         <app-task-item
           [task]="task"
           [index]="$index"
