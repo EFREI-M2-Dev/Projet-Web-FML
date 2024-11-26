@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Task } from '../../../interfaces/Task';
 import { CommonModule } from '@angular/common';
+import { TaskEditModalComponent } from "../task-edit-modal/task-edit-modal.component";
 
 @Component({
   selector: 'app-task-item',
-  imports: [CommonModule],
+  imports: [CommonModule, TaskEditModalComponent],
   templateUrl: './task-item.component.html',
   styleUrl: './task-item.component.scss',
 })
@@ -12,7 +13,8 @@ export class TaskItemComponent {
   @Input() public task!: Task;
   @Output() public taskDeleted = new EventEmitter<string>();
   @Output() public taskToggled = new EventEmitter<Task>();
-  @Output() public edit = new EventEmitter<Task>();
+
+  public isModalOpen = false
 
   public toggleTask() {
     this.taskToggled.emit(this.task);
@@ -26,6 +28,6 @@ export class TaskItemComponent {
   }
 
   public onEdit() {
-    this.edit.emit(this.task);
+    this.isModalOpen = !this.isModalOpen
   }
 }
