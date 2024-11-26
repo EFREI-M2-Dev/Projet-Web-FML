@@ -9,6 +9,7 @@ import {
   query,
   where,
   updateDoc,
+  Timestamp,
 } from '@angular/fire/firestore';
 import { map, Observable } from 'rxjs';
 import { Task, TaskResponse } from '../../interfaces/Task';
@@ -22,7 +23,15 @@ export class TaskService {
   private tasksCollection = collection(this.firestore, 'tasks');
 
   addTask(task: Task): Promise<void> {
-    return addDoc(this.tasksCollection, task).then(() => {
+    const taskDoc: TaskResponse = {
+      title: task.title,
+      description: task.description,
+      done: task.done,
+      atDate: Timestamp.fromDate(new Date()),
+      userUID: task.userUID,
+    };
+
+    return addDoc(this.tasksCollection, taskDoc).then(() => {
       console.log('Task ajoutée avec succès');
     });
   }
