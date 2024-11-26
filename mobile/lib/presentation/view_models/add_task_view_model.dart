@@ -6,8 +6,23 @@ class AddTaskViewModel with ChangeNotifier {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
   DateTime? selectedDate;
+  String? selectedThematic;
+  List<Map<String, dynamic>> thematics = [];
 
   bool isLoading = false;
+
+  Future<void> fetchThematics() async {
+    try {
+      final querySnapshot =
+          await FirebaseFirestore.instance.collection('thematics').get();
+      thematics = querySnapshot.docs
+          .map((doc) => {'id': doc.id, ...doc.data() as Map<String, dynamic>})
+          .toList();
+      notifyListeners();
+    } catch (e) {
+      throw 'Failed to load thematics: $e';
+    }
+  }
 
   Future<void> loadTask(String taskId) async {
     isLoading = true;
@@ -24,6 +39,7 @@ class AddTaskViewModel with ChangeNotifier {
         titleController.text = data['title'] ?? '';
         descriptionController.text = data['description'] ?? '';
         selectedDate = (data['atDate'] as Timestamp?)?.toDate();
+        selectedThematic = data['thematic'];
         notifyListeners();
       } else {
         throw 'Task not found';
@@ -37,8 +53,10 @@ class AddTaskViewModel with ChangeNotifier {
   }
 
   Future<void> saveTask(String? taskId) async {
-    if (titleController.text.isEmpty || selectedDate == null) {
-      throw 'Please provide a title and select a date';
+    if (titleController.text.isEmpty ||
+        selectedDate == null ||
+        selectedThematic == null) {
+      throw 'Please provide a title, select a date, and choose a thematic';
     }
 
     final title = titleController.text;
@@ -52,23 +70,22 @@ class AddTaskViewModel with ChangeNotifier {
         throw 'No user is logged in';
       }
 
+      final taskData = {
+        'title': title,
+        'description': description,
+        'atDate': Timestamp.fromDate(date!),
+        'userUID': userUID,
+        'done': false,
+        'thematic': selectedThematic,
+      };
+
       if (taskId == null) {
-        await FirebaseFirestore.instance.collection('tasks').add({
-          'title': title,
-          'description': description,
-          'atDate': Timestamp.fromDate(date!),
-          'userUID': userUID,
-          'done': false,
-        });
+        await FirebaseFirestore.instance.collection('tasks').add(taskData);
       } else {
         await FirebaseFirestore.instance
             .collection('tasks')
             .doc(taskId)
-            .update({
-          'title': title,
-          'description': description,
-          'atDate': Timestamp.fromDate(date!),
-        });
+            .update(taskData);
       }
     } catch (e) {
       throw 'Failed to save task: $e';
