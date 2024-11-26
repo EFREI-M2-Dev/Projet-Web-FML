@@ -17,16 +17,10 @@
           [task]="task"
           [index]="$index"
           (taskDeleted)="deleteTask(task.id!)"
+          (taskToggled)="toggleDone($event)"
+          (edit)="editTask($event)"
         >
         </app-task-item>
-        <!-- <app-task-item
-          [task]="task"
-          [index]="$index"
-          (taskDeleted)="deleteTask($index)"
-          (taskToggled)="toggleComplete(task)"
-          (edit)="editTask(task)"
-        >
-        </app-task-item> -->
       }
     </ul>
   </div>

@@ -31,6 +31,25 @@ export class TasksComponent {
     }
   }
 
+  toggleDone(task: Task) {
+    this.taskService.updateTask(task.id!, { done: !task.done }).catch((error) => {
+      console.error('Erreur lors de la mise à jour du statut de la tâche :', error);
+    });
+  }
+
+  editTask(task: Task) {
+    const newTitle = prompt('Modifier le titre de la tâche :', task.title);
+    const newDescription = prompt('Modifier la description de la tâche :', task.description);
+
+    if (newTitle && newDescription) {
+      this.taskService
+        .updateTask(task.id!, { title: newTitle, description: newDescription })
+        .catch((error) => {
+          console.error('Erreur lors de la mise à jour de la tâche :', error);
+        });
+    }
+  }
+
   addTask(newTask: { title: string; description: string; atDate: Date }) {
     const user = this.auth.currentUser;
     if (user) {
