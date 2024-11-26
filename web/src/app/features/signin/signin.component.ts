@@ -3,26 +3,27 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FirebaseError } from 'firebase/app';
 
 @Component({
   selector: 'app-signin',
   imports: [ReactiveFormsModule, RouterLink, CommonModule],
   templateUrl: './signin.component.html',
-  styleUrl: './signin.component.scss'
+  styleUrl: './signin.component.scss',
 })
-export class SigninComponent implements OnInit{
-
+export class SigninComponent implements OnInit {
   private readonly formBuilder = inject(FormBuilder);
   private readonly auth = inject(Auth);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
   protected signinForm!: FormGroup;
-  
+  protected errorFirebase!: FirebaseError;
+
   ngOnInit(): void {
     this.signinForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
@@ -36,17 +37,16 @@ export class SigninComponent implements OnInit{
 
   signIn() {
     if (this.email && this.password) {
+      this.signinForm.markAsPristine();
       createUserWithEmailAndPassword(this.auth, this.email.value, this.password.value)
         .then((userCredential) => {
           console.log('Utilisateur créé avec succès :', userCredential.user);
           this.router.navigate(['/tasks']); // Redirige après l'inscription
         })
-        .catch((error) => {
+        .catch((error: FirebaseError) => {
+          this.errorFirebase = error;
           console.error('Erreur lors de l’inscription :', error);
-          // this.errorMessage = this.getErrorMessage(error.code);
         });
     }
   }
-
 }
-
