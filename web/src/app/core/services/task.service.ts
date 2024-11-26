@@ -28,7 +28,7 @@ export class TaskService {
       title: task.title,
       description: task.description,
       done: task.done,
-      atDate: Timestamp.fromDate(new Date()),
+      atDate: Timestamp.fromDate(task.atDate),
       userUID: task.userUID,
     };
 
