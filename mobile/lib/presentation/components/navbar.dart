@@ -40,8 +40,8 @@ class Navbar extends StatelessWidget {
         final imageUrl = user['imageURL'] ?? '';
 
         return Container(
-          height: 80,
-          padding: const EdgeInsets.only(bottom: 20),
+          height: 130,
+          padding: const EdgeInsets.only(bottom: 20, top: 60),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

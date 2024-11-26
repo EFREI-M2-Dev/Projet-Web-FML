@@ -35,12 +35,25 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/login',
-      routes: {
-        '/login': (_) => LoginScreen(),
-        '/register': (_) => RegisterScreen(),
-        '/home': (_) => HomeScreen(),
-        '/profile': (_) => ProfileScreen(),
-        '/add-task': (_) => AddTaskScreen(),
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case '/add-task':
+          case '/edit-task':
+            final taskId = settings.arguments as String?;
+            return MaterialPageRoute(
+              builder: (_) => AddTaskScreen(taskId: taskId),
+            );
+          case '/login':
+            return MaterialPageRoute(builder: (_) => LoginScreen());
+          case '/register':
+            return MaterialPageRoute(builder: (_) => RegisterScreen());
+          case '/home':
+            return MaterialPageRoute(builder: (_) => HomeScreen());
+          case '/profile':
+            return MaterialPageRoute(builder: (_) => ProfileScreen());
+          default:
+            return null;
+        }
       },
     );
   }

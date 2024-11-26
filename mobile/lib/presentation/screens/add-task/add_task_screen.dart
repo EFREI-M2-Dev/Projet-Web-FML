@@ -4,12 +4,26 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:TaskIt/presentation/view_models/add_task_view_model.dart';
 
 class AddTaskScreen extends StatelessWidget {
+  final String? taskId;
+
+  const AddTaskScreen({Key? key, this.taskId}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    final isEdit = taskId != null;
+
     return ChangeNotifierProvider(
-      create: (context) => AddTaskViewModel(),
+      create: (context) {
+        final viewModel = AddTaskViewModel();
+        if (isEdit) {
+          viewModel.loadTask(taskId!);
+        }
+        return viewModel;
+      },
       child: Scaffold(
-        appBar: AppBar(title: Text('Add Task')),
+        appBar: AppBar(
+          title: Text(isEdit ? 'Edit Task' : 'Add Task'),
+        ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Consumer<AddTaskViewModel>(
@@ -66,7 +80,7 @@ class AddTaskScreen extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () async {
                       try {
-                        await viewModel.saveTask();
+                        await viewModel.saveTask(taskId);
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text('Task added successfully!')),
                         );
