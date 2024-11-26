@@ -2,47 +2,33 @@ import { Component } from '@angular/core';
 import { TaskCreateComponent } from './task-create/task-create.component';
 import { Task } from '../../interfaces/Task';
 import { TaskItemComponent } from './task-item/task-item.component';
-import { Router } from '@angular/router';
-import { Auth, signOut } from '@angular/fire/auth';
+import { Auth } from '@angular/fire/auth';
 import { TaskService } from '../../core/services/task.service';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { IconButtonComponent } from '../../shared/icon-button/icon-button.component';
 
 @Component({
   selector: 'app-tasks',
   imports: [
     TaskCreateComponent,
     TaskItemComponent,
-    IconButtonComponent,
     CommonModule,
   ],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.scss',
 })
 export class TasksComponent {
-  public completedTasks$: Observable<Task[]>;
-  public pendingTasks$: Observable<Task[]>;
+  public tasks$: Observable<Task[]>;
 
   constructor(
     private taskService: TaskService,
     private auth: Auth,
-    private router: Router
   ) {
     const user = this.auth.currentUser;
     if (user) {
-      const allTasks$ = this.taskService.getTasks(user.uid);
-
-      this.completedTasks$ = allTasks$.pipe(
-        map((tasks) => tasks.filter((task) => task.done))
-      );
-
-      this.pendingTasks$ = allTasks$.pipe(
-        map((tasks) => tasks.filter((task) => !task.done))
-      );
+      this.tasks$ = this.taskService.getTasks(user.uid);
     } else {
-      this.completedTasks$ = new Observable();
-      this.pendingTasks$ = new Observable();
+      this.tasks$ = new Observable();
     }
   }
 
