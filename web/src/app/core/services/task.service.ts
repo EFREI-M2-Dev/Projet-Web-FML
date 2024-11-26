@@ -8,6 +8,7 @@ import {
   doc,
   query,
   where,
+  orderBy,
   updateDoc,
   Timestamp,
 } from '@angular/fire/firestore';
@@ -39,7 +40,8 @@ export class TaskService {
   getTasks(userUID: string): Observable<Task[]> {
     const userTasksQuery = query(
       this.tasksCollection,
-      where('userUID', '==', userUID)
+      where('userUID', '==', userUID),
+      orderBy('done')
     );
     return collectionData(userTasksQuery, { idField: 'id' }).pipe(
       map((tasks: TaskResponse[]) =>
