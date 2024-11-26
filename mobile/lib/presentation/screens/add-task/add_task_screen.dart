@@ -18,6 +18,7 @@ class AddTaskScreen extends StatelessWidget {
         if (isEdit) {
           viewModel.loadTask(taskId!);
         }
+        viewModel.fetchThematics();
         return viewModel;
       },
       child: Scaffold(
@@ -44,6 +45,43 @@ class AddTaskScreen extends StatelessWidget {
                     controller: viewModel.titleController,
                     decoration: InputDecoration(
                       labelText: 'Task Title',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  SizedBox(height: 16.0),
+                  // Sélection de la thématique
+                  DropdownButtonFormField<String>(
+                    value: viewModel.selectedThematic,
+                    items: viewModel.thematics
+                        .map(
+                          (thematic) => DropdownMenuItem<String>(
+                            value: thematic['id'],
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 16,
+                                  height: 16,
+                                  margin: EdgeInsets.only(right: 8.0),
+                                  decoration: BoxDecoration(
+                                    color: Color(
+                                      int.parse(
+                                          '0xff${thematic['color'].substring(1)}'),
+                                    ),
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                                Text(thematic['label']),
+                              ],
+                            ),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (value) {
+                      viewModel.selectedThematic = value;
+                      viewModel.notifyListeners();
+                    },
+                    decoration: InputDecoration(
+                      labelText: 'Select Thematic',
                       border: OutlineInputBorder(),
                     ),
                   ),
