@@ -56,6 +56,7 @@ html, body{
   --red: #C96868;
   --white: #fff;
   --black: #444343;
+  --alert: #F00;
   --header-height: 110px;
 }
 
@@ -94,6 +95,18 @@ html, body{
       color: grey;
       font-weight: 300;
     }
+
+    &.alert{
+      border-color: var(--alert);
+    }
+  }
+  
+  small{
+    margin-left: 5%;
+    font-size: 0.9rem;
+    &.alert{
+      color: var(--alert);
+    }
   }
 }
 
@@ -130,8 +143,24 @@ h2{
   cursor: pointer;
   border: 2px solid var(--red);
   font-size: 1rem;
+  box-sizing: border-box;
+  text-align: center;
+  text-decoration: none;
 
-  &:hover{
+  &:hover:not([disabled]){
+    background-color: var(--white);
+    color: var(--red);
+    border-color: var(--red);
+  }
+
+  &[disabled]{
+    opacity: 0.25;
+    &:hover{
+      cursor: default;
+    }
+  }
+
+  &-secondary{
     background-color: var(--white);
     color: var(--red);
     border-color: var(--red);

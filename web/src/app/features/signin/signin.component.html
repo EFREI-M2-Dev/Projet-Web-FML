@@ -1,0 +1,49 @@
+<div class="signin">
+    <div class="signin__container">
+      <h2>Inscription</h2>
+      <form [formGroup]="signinForm" (submit)="signIn()">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input
+                id="email"
+                type="email"
+                formControlName="email"
+                placeholder="Votre email"
+                [ngClass]="{alert: email?.invalid && (email?.dirty || email?.touched)}"
+            />
+            @if(email?.invalid && (email?.dirty || email?.touched)){
+                <small class="alert">
+                    @if(email?.hasError('required')){
+                        Champ à remplir.
+                    }
+                    @if(email?.hasError('email')){
+                        Adresse mail invalide.
+                    }
+                </small>
+            }
+        </div>
+        <div class="form-group">            
+            <label for="password">Mot de passe</label>
+            <input
+                id="password"
+                type="password"
+                formControlName="password"
+                placeholder="Votre mot de passe"
+                [ngClass]="{alert: password?.invalid && (password?.dirty || password?.touched)}"
+            />
+            @if(password?.invalid && (password?.dirty || password?.touched)){
+                <small class="alert">
+                    @if(password?.hasError('required')){
+                        Champ à remplir.
+                    }
+                </small>
+            }
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!signinForm.valid">S'inscrire</button>
+        <a [routerLink]="['/login']" class="btn btn-secondary">Déjà un compte ?</a>
+    </form>
+      
+    </div>
+  
+  </div>
+  
