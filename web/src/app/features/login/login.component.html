@@ -26,6 +26,11 @@
           required
         />
       </div>
+      @if (errorMessage) {
+        <p class="error">
+          {{ errorMessage }}
+        </p>
+      }
       <button type="submit" class="btn btn-primary">Se connecter</button>
       <a [routerLink]="['/signin']" class="btn btn-secondary">Première connexion ?</a>
     </form>
