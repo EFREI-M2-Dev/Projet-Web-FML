@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:TaskIt/presentation/view_models/profile_view_model.dart';
 
 class Navbar extends StatelessWidget {
-  const Navbar({Key? key}) : super(key: key);
+  const Navbar({super.key});
 
   @override
   Widget build(BuildContext context) {

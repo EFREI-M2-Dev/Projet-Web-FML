@@ -18,7 +18,7 @@ class HomeViewModel with ChangeNotifier {
       return snapshot.docs.map((doc) {
         return {
           'id': doc.id,
-          ...doc.data() as Map<String, dynamic>,
+          ...doc.data(),
         };
       }).toList();
     });
