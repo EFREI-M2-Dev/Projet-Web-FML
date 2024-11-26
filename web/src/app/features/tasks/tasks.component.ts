@@ -21,8 +21,8 @@ import { IconButtonComponent } from '../../shared/icon-button/icon-button.compon
   styleUrl: './tasks.component.scss',
 })
 export class TasksComponent {
-  public completedTasks$: Observable<Task[]>; 
-  public pendingTasks$: Observable<Task[]>; 
+  public completedTasks$: Observable<Task[]>;
+  public pendingTasks$: Observable<Task[]>;
 
   constructor(
     private taskService: TaskService,
@@ -93,14 +93,5 @@ export class TasksComponent {
     });
   }
 
-  logout() {
-    signOut(this.auth)
-      .then(() => {
-        console.log('Déconnexion réussie');
-        this.router.navigate(['/login']);
-      })
-      .catch((error) => {
-        console.error('Erreur lors de la déconnexion :', error);
-      });
-  }
+
 }

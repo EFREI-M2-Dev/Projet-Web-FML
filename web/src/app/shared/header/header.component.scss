@@ -5,9 +5,11 @@
   padding: 2rem;
   border-radius: 0 0 60px 60px;
   margin: auto auto 2rem;
-  position: fixed;
   width: 100vw;
   box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 
   &__title{
     display: flex;
@@ -19,5 +21,32 @@
     color: var(--red);
     align-items: center;
     text-decoration: none;
+  }
+}
+
+
+.task-logout{
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 15;
+
+  button {
+    padding: .4rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    svg {
+      vertical-align: bottom;
+      path{
+        transition: all .2s ease-in-out;
+      }
+    }
+
+    &:hover{
+      svg path{
+        fill: var(--red);
+      }
+    }
   }
 }
