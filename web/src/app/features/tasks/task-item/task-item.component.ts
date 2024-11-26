@@ -20,7 +20,10 @@ export class TaskItemComponent {
   }
 
   deleteTask() {
-    this.taskDeleted.emit(this.task.id);
+    const isConfirmed = window.confirm('Êtes-vous sûr de vouloir supprimer cette tâche ?');
+    if (isConfirmed) {
+      this.taskDeleted.emit(this.task.id);
+    }
   }
 
   onEdit() {
