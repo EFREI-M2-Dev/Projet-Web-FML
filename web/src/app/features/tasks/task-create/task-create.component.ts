@@ -28,4 +28,8 @@ export class TaskCreateComponent {
   openModal() {
     this.isModalOpen = true;
   }
+
+  closeModal() {
+    this.isModalOpen = false;
+  }
 }
