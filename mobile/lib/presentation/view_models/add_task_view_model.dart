@@ -7,7 +7,36 @@ class AddTaskViewModel with ChangeNotifier {
   final descriptionController = TextEditingController();
   DateTime? selectedDate;
 
-  Future<void> saveTask() async {
+  bool isLoading = false;
+
+  Future<void> loadTask(String taskId) async {
+    isLoading = true;
+    notifyListeners();
+
+    try {
+      final taskDoc = await FirebaseFirestore.instance
+          .collection('tasks')
+          .doc(taskId)
+          .get();
+
+      if (taskDoc.exists) {
+        final data = taskDoc.data()!;
+        titleController.text = data['title'] ?? '';
+        descriptionController.text = data['description'] ?? '';
+        selectedDate = (data['atDate'] as Timestamp?)?.toDate();
+        notifyListeners();
+      } else {
+        throw 'Task not found';
+      }
+    } catch (e) {
+      throw 'Failed to load task: $e';
+    } finally {
+      isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> saveTask(String? taskId) async {
     if (titleController.text.isEmpty || selectedDate == null) {
       throw 'Please provide a title and select a date';
     }
@@ -23,13 +52,24 @@ class AddTaskViewModel with ChangeNotifier {
         throw 'No user is logged in';
       }
 
-      await FirebaseFirestore.instance.collection('tasks').add({
-        'title': title,
-        'description': description,
-        'atDate': Timestamp.fromDate(date!),
-        'userUID': userUID,
-        'done': false,
-      });
+      if (taskId == null) {
+        await FirebaseFirestore.instance.collection('tasks').add({
+          'title': title,
+          'description': description,
+          'atDate': Timestamp.fromDate(date!),
+          'userUID': userUID,
+          'done': false,
+        });
+      } else {
+        await FirebaseFirestore.instance
+            .collection('tasks')
+            .doc(taskId)
+            .update({
+          'title': title,
+          'description': description,
+          'atDate': Timestamp.fromDate(date!),
+        });
+      }
     } catch (e) {
       throw 'Failed to save task: $e';
     }

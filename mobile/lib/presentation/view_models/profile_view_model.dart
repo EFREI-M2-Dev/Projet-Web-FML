@@ -18,7 +18,6 @@ class UserService {
     try {
       final storageRef = _storage.ref().child('user_images/${user.uid}.jpg');
       await storageRef.putFile(imageFile);
-      print('Image uploaded successfully');
       final imageURL = await storageRef.getDownloadURL();
 
       await _firestore.collection('users').doc(user.uid).set({
