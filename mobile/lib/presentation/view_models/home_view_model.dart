@@ -14,13 +14,34 @@ class HomeViewModel with ChangeNotifier {
         .collection('tasks')
         .where('userUID', isEqualTo: user.uid)
         .snapshots()
-        .map((snapshot) {
-      return snapshot.docs.map((doc) {
+        .asyncMap((snapshot) async {
+      final tasks = snapshot.docs.map((doc) {
         return {
           'id': doc.id,
           ...doc.data(),
         };
       }).toList();
+
+      for (var task in tasks) {
+        final thematicId = task['thematic'];
+        if (thematicId != null) {
+          final thematicDoc = await FirebaseFirestore.instance
+              .collection('thematics')
+              .doc(thematicId)
+              .get();
+
+          if (thematicDoc.exists) {
+            task['thematicData'] = {
+              'label': thematicDoc['label'],
+              'color': thematicDoc['color'],
+            };
+          }
+        }
+      }
+
+      print(tasks);
+
+      return tasks;
     });
   }
 

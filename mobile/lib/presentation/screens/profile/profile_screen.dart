@@ -26,21 +26,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.initState();
     _fetchUserProfile();
 
-    // Add listener to track name changes
     _nameController.addListener(_onNameChanged);
   }
 
   @override
   void dispose() {
-    // Remove listener when disposing the widget
     _nameController.removeListener(_onNameChanged);
     super.dispose();
   }
 
   void _onNameChanged() {
-    setState(() {
-      // Directly trigger state change, the getter will be recomputed on build
-    });
+    setState(() {});
   }
 
   Future<void> _fetchUserProfile() async {
@@ -72,7 +68,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   bool get _isFormChanged {
-    // Return true if there are changes in the name or the image
     return _nameController.text != _initialName || _localImageFile != null;
   }
 

@@ -39,7 +39,6 @@ class AddTaskScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 16.0),
-                  // Titre de la tâche
                   TextField(
                     controller: viewModel.titleController,
                     decoration: InputDecoration(
@@ -48,7 +47,6 @@ class AddTaskScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 16.0),
-                  // Sélection de la thématique
                   DropdownButtonFormField<String>(
                     value: viewModel.selectedThematic,
                     items: viewModel.thematics
@@ -85,7 +83,6 @@ class AddTaskScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 16.0),
-                  // Description de la tâche
                   TextField(
                     controller: viewModel.descriptionController,
                     decoration: InputDecoration(
@@ -95,7 +92,6 @@ class AddTaskScreen extends StatelessWidget {
                     maxLines: 4,
                   ),
                   SizedBox(height: 16.0),
-                  // Sélection de la date
                   Row(
                     children: [
                       Expanded(
@@ -106,14 +102,12 @@ class AddTaskScreen extends StatelessWidget {
                         ),
                       ),
                       TextButton(
-                        onPressed: () => viewModel
-                            .pickDate(context), // Passer le context ici
+                        onPressed: () => viewModel.pickDate(context),
                         child: Text('Pick a Date'),
                       ),
                     ],
                   ),
                   Spacer(),
-                  // Bouton pour sauvegarder la tâche
                   ElevatedButton(
                     onPressed: () async {
                       try {
@@ -121,7 +115,7 @@ class AddTaskScreen extends StatelessWidget {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text('Task added successfully!')),
                         );
-                        Navigator.pop(context); // Retour à l'écran précédent
+                        Navigator.pop(context);
                       } catch (e) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text(e.toString())),
@@ -129,7 +123,7 @@ class AddTaskScreen extends StatelessWidget {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      minimumSize: Size(double.infinity, 50), // Large button
+                      minimumSize: Size(double.infinity, 50),
                     ),
                     child: Text('Save Task'),
                   ),
