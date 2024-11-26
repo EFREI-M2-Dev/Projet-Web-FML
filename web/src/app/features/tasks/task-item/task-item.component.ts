@@ -11,16 +11,16 @@ import {CommonModule} from '@angular/common';
 export class TaskItemComponent {
   @Input() task!: Task;
   @Input() index!: number;
-  @Output() taskDeleted = new EventEmitter<void>();
-  @Output() taskToggled = new EventEmitter<void>();
+  @Output() taskDeleted = new EventEmitter<string>();
+  @Output() taskToggled = new EventEmitter<Task>();
   @Output() edit = new EventEmitter<Task>();
 
   toggleTask() {
-    this.taskToggled.emit();
+    this.taskToggled.emit(this.task);
   }
 
   deleteTask() {
-    this.taskDeleted.emit();
+    this.taskDeleted.emit(this.task.id);
   }
 
   onEdit() {

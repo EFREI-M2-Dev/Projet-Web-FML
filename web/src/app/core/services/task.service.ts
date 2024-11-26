@@ -8,6 +8,7 @@ import {
   doc,
   query,
   where,
+  updateDoc,
 } from '@angular/fire/firestore';
 import { map, Observable } from 'rxjs';
 import { Task, TaskResponse } from '../../interfaces/Task';
@@ -39,6 +40,13 @@ export class TaskService {
         }))
       )
     ) as Observable<Task[]>;
+  }
+
+  updateTask(taskId: string, updates: Partial<Task>): Promise<void> {
+    const taskDoc = doc(this.firestore, `tasks/${taskId}`);
+    return updateDoc(taskDoc, updates).then(() => {
+      console.log(`Task ${taskId} mise à jour avec succès`);
+    });
   }
 
   deleteTask(id: string): Promise<void> {
