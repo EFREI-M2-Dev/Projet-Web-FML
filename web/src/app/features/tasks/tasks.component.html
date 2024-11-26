@@ -11,7 +11,6 @@
           [task]="task"
           (taskDeleted)="deleteTask(task.id!)"
           (taskToggled)="toggleDone($event)"
-          (edit)="editTask($event)"
         >
         </app-task-item>
       }

@@ -34,19 +34,6 @@ export class TasksComponent {
     this.tasksFacade.toggleDone(task);
   }
 
-  public editTask(task: Task) {
-    const newTitle = prompt('Modifier le titre de la tâche :', task.title);
-    const newDescription = prompt('Modifier la description de la tâche :', task.description);
-
-    if (newTitle && newDescription) {
-      this.taskService
-        .updateTask(task.id!, { title: newTitle, description: newDescription })
-        .catch((error) => {
-          console.error('Erreur lors de la mise à jour de la tâche :', error);
-        });
-    }
-  }
-
   public addTask(newTask: NewTask) {
     const user = this.auth.currentUser;
     if (user) {
