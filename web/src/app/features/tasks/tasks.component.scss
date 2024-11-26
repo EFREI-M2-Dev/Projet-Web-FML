@@ -1,31 +1,6 @@
-.task-logout{
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-
-  button {
-    padding: .4rem;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    svg {
-      vertical-align: bottom;
-      path{
-        transition: all .2s ease-in-out;
-      }
-    }
-
-    &:hover{
-      svg path{
-        fill: var(--red);
-      }
-    }
-  }
-}
 
 
 .task-list{
-  height: calc(100vh - var(--header-height));
   width: 876px;
   margin: auto;
   display: flex;
@@ -33,7 +8,6 @@
   align-items: center;
   flex-direction: column;
   position: relative;
-  top: var(--header-height);
 
   &__header{
     display: flex;
@@ -57,8 +31,6 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    overflow-y: auto;
-    max-height: 500px;
     padding-right: 2rem;
 
     &::before{
