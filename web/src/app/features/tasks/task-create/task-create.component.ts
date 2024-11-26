@@ -10,7 +10,7 @@ import { IconButtonComponent } from '../../../shared/icon-button/icon-button.com
 })
 export class TaskCreateComponent {
   isModalOpen = false;
-  newTask = {title: '', description: '', atDate: new Date()};
+  newTask = { title: '', description: '', atDate: new Date() };
   @Output() taskAdded = new EventEmitter<{
     title: string;
     description: string;
@@ -22,7 +22,7 @@ export class TaskCreateComponent {
       this.newTask.atDate = new Date(this.newTask.atDate);
       this.taskAdded.emit(this.newTask);
       this.isModalOpen = false;
-      this.newTask = {title: '', description: '', atDate: new Date()};
+      this.newTask = { title: '', description: '', atDate: new Date() };
     }
   }
 

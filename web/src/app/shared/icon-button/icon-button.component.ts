@@ -1,10 +1,10 @@
-import { Component, EventEmitter, Output } from "@angular/core";
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
-  selector: "app-icon-button",
+  selector: 'app-icon-button',
   imports: [],
-  templateUrl: "./icon-button.component.html",
-  styleUrl: "./icon-button.component.scss",
+  templateUrl: './icon-button.component.html',
+  styleUrl: './icon-button.component.scss',
 })
 export class IconButtonComponent {
   @Output() clicked: EventEmitter<void> = new EventEmitter();

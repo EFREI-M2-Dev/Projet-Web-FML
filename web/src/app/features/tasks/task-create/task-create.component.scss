@@ -1,4 +1,3 @@
-
 .add-task {
   &__modal {
     position: fixed;
@@ -36,13 +35,14 @@
       gap: 1rem;
       width: 100%;
 
-      textarea, input{
+      textarea,
+      input {
         border-radius: 15px;
         resize: none;
       }
     }
 
-    &__close{
+    &__close {
       position: absolute;
       top: 2rem;
       right: 2rem;
@@ -50,18 +50,15 @@
       background-color: transparent;
       cursor: pointer;
 
-      svg path{
+      svg path {
         fill: var(--red);
       }
 
-      &:hover{
-        svg path{
-          opacity: .5;
+      &:hover {
+        svg path {
+          opacity: 0.5;
         }
       }
     }
   }
-
-
 }
-
