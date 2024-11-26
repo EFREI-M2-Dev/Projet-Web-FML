@@ -71,7 +71,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         final isDone = task['done'] ?? false;
 
                         return Card(
-                          color: Color(0xFFF7EEFD),
+                          color: task['thematicData']?["color"] != null
+                              ? Color(0xFF000000 +
+                                  int.parse(
+                                      task['thematicData']["color"]
+                                          .substring(1, 7),
+                                      radix: 16))
+                              : Color(0x80E0E0E0),
                           margin: const EdgeInsets.symmetric(vertical: 8.0),
                           child: ListTile(
                             leading: Checkbox(
@@ -96,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 decoration: isDone
                                     ? TextDecoration.lineThrough
                                     : TextDecoration.none,
-                                color: isDone ? Colors.grey : Colors.black,
+                                /* color: isDone ? Colors.grey : Colors.black, */
                               ),
                             ),
                             subtitle:
