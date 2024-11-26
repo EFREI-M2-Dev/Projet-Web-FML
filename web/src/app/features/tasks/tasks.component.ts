@@ -16,7 +16,7 @@ import { IconButtonComponent } from '../../shared/icon-button/icon-button.compon
   styleUrl: './tasks.component.scss',
 })
 export class TasksComponent {
-  public tasks$: Observable<Task[]>; 
+  public tasks$: Observable<Task[]>;
 
   constructor(
     private taskService: TaskService,
@@ -27,7 +27,7 @@ export class TasksComponent {
     if (user) {
       this.tasks$ = this.taskService.getTasks(user.uid);
     } else {
-      this.tasks$ = new Observable(); 
+      this.tasks$ = new Observable();
     }
   }
 
@@ -38,12 +38,9 @@ export class TasksComponent {
   }
 
   editTask(task: Task) {
-    const newTitle = prompt('Modifier le titre de la tâche :', task.title);
-    const newDescription = prompt('Modifier la description de la tâche :', task.description);
-
-    if (newTitle && newDescription) {
+    if (task.title && task.description) {
       this.taskService
-        .updateTask(task.id!, { title: newTitle, description: newDescription })
+        .updateTask(task.id!, { title: task.title, description: task.description })
         .catch((error) => {
           console.error('Erreur lors de la mise à jour de la tâche :', error);
         });

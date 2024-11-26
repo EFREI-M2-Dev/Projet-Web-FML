@@ -35,3 +35,7 @@
     </span>
   </label>
 </div>
+
+@if (editModalOpen) {
+  <app-modal [task]="task" (modalClosed)="onModalClose()" />
+}
