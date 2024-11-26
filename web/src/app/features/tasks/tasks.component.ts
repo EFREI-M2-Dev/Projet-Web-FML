@@ -9,11 +9,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-tasks',
-  imports: [
-    TaskCreateComponent,
-    TaskItemComponent,
-    CommonModule,
-  ],
+  imports: [TaskCreateComponent, TaskItemComponent, CommonModule],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.scss',
 })
@@ -33,22 +29,14 @@ export class TasksComponent {
   }
 
   toggleDone(task: Task) {
-    this.taskService
-      .updateTask(task.id!, { done: !task.done })
-      .catch((error) => {
-        console.error(
-          'Erreur lors de la mise à jour du statut de la tâche :',
-          error
-        );
-      });
+    this.taskService.updateTask(task.id!, { done: !task.done }).catch((error) => {
+      console.error('Erreur lors de la mise à jour du statut de la tâche :', error);
+    });
   }
 
   editTask(task: Task) {
     const newTitle = prompt('Modifier le titre de la tâche :', task.title);
-    const newDescription = prompt(
-      'Modifier la description de la tâche :',
-      task.description
-    );
+    const newDescription = prompt('Modifier la description de la tâche :', task.description);
 
     if (newTitle && newDescription) {
       this.taskService
@@ -78,6 +66,4 @@ export class TasksComponent {
       console.error('Erreur lors de la suppression de la tâche :', error);
     });
   }
-
-
 }

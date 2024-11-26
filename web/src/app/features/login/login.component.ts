@@ -13,12 +13,16 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 export class LoginComponent {
   email: string = '';
   password: string = '';
-  errorMessage: string | null = null; 
+  errorMessage: string | null = null;
 
-  constructor(private auth: Auth, private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private auth: Auth,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {}
 
   login() {
-    this.errorMessage = null; 
+    this.errorMessage = null;
 
     signInWithEmailAndPassword(this.auth, this.email, this.password)
       .then(() => {
@@ -34,9 +38,9 @@ export class LoginComponent {
   private getErrorMessage(errorCode: string): string {
     switch (errorCode) {
       case 'auth/invalid-credential':
-        return "Identifiants invalide.";
+        return 'Identifiants invalide.';
       default:
-        return "Une erreur inattendue est survenue. Veuillez réessayer.";
+        return 'Une erreur inattendue est survenue. Veuillez réessayer.';
     }
   }
 }

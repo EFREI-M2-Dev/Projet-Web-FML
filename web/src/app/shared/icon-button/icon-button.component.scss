@@ -1,32 +1,32 @@
-.icon-button{    
-    width: 50px;
-    height: 50px;
+.icon-button {
+  width: 50px;
+  height: 50px;
 
-    box-sizing: border-box;
-    border: 2px solid var(--red);
-    border-radius: 50%;
+  box-sizing: border-box;
+  border: 2px solid var(--red);
+  border-radius: 50%;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all .2s ease-in-out;
-    background-color: var(--red);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
+  background-color: var(--red);
 
-    &:hover{
-        cursor: pointer;
-        background-color: var(--white);
+  &:hover {
+    cursor: pointer;
+    background-color: var(--white);
 
-        ::ng-deep{
-            svg path{
-                fill: var(--red);
-            }
-        }
+    ::ng-deep {
+      svg path {
+        fill: var(--red);
+      }
     }
+  }
 
-    ::ng-deep{
-        svg path{
-            transition: all .2s ease-in-out;
-            fill: var(--white);
-        }
+  ::ng-deep {
+    svg path {
+      transition: all 0.2s ease-in-out;
+      fill: var(--white);
     }
+  }
 }

@@ -20,7 +20,7 @@ export const appConfig: ApplicationConfig = {
         authDomain: 'test-c9086.firebaseapp.com',
         messagingSenderId: '1084178538565',
         measurementId: 'G-269NEFBN14',
-      })
+      }),
     ),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
