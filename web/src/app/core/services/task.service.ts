@@ -10,7 +10,7 @@ import {
   where,
 } from '@angular/fire/firestore';
 import { map, Observable } from 'rxjs';
-import { Task } from '../../interfaces/Task';
+import { Task, TaskResponse } from '../../interfaces/Task';
 
 @Injectable({
   providedIn: 'root',
@@ -32,7 +32,7 @@ export class TaskService {
       where('userUID', '==', userUID)
     );
     return collectionData(userTasksQuery, { idField: 'id' }).pipe(
-      map((tasks: any[]) =>
+      map((tasks: TaskResponse[]) =>
         tasks.map((task) => ({
           ...task,
           atDate: task.atDate.toDate(),
