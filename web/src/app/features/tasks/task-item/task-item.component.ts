@@ -9,24 +9,23 @@ import { CommonModule } from '@angular/common';
   styleUrl: './task-item.component.scss',
 })
 export class TaskItemComponent {
-  @Input() task!: Task;
-  @Input() index!: number;
-  @Output() taskDeleted = new EventEmitter<string>();
-  @Output() taskToggled = new EventEmitter<Task>();
-  @Output() edit = new EventEmitter<Task>();
+  @Input() public task!: Task;
+  @Output() public taskDeleted = new EventEmitter<string>();
+  @Output() public taskToggled = new EventEmitter<Task>();
+  @Output() public edit = new EventEmitter<Task>();
 
-  toggleTask() {
+  public toggleTask() {
     this.taskToggled.emit(this.task);
   }
 
-  deleteTask() {
+  public deleteTask() {
     const isConfirmed = window.confirm('Êtes-vous sûr de vouloir supprimer cette tâche ?');
     if (isConfirmed) {
       this.taskDeleted.emit(this.task.id);
     }
   }
 
-  onEdit() {
+  public onEdit() {
     this.edit.emit(this.task);
   }
 }

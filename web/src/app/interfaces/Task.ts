@@ -9,11 +9,17 @@ export interface Task {
   userUID: string;
 }
 
-export interface TaskResponse {
+export interface TaskDoc {
   id?: string;
   title: string;
   description: string;
   done: boolean;
   atDate: Timestamp;
   userUID: string;
+}
+
+export interface NewTask {
+  title: string;
+  description: string;
+  atDate: Date;
 }
