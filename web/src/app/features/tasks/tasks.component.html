@@ -9,7 +9,6 @@
       @for (task of tasks$ | async; track $index) {
         <app-task-item
           [task]="task"
-          [index]="$index"
           (taskDeleted)="deleteTask(task.id!)"
           (taskToggled)="toggleDone($event)"
           (edit)="editTask($event)"

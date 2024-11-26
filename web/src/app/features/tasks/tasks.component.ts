@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { TaskCreateComponent } from './task-create/task-create.component';
-import { Task } from '../../interfaces/Task';
+import { NewTask, Task } from '../../interfaces/Task';
 import { TaskItemComponent } from './task-item/task-item.component';
 import { Auth } from '@angular/fire/auth';
 import { TaskService } from '../../core/services/task.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { TasksFacade } from './tasks.facade';
 
 @Component({
   selector: 'app-tasks',
@@ -19,6 +20,7 @@ export class TasksComponent {
   constructor(
     private taskService: TaskService,
     private auth: Auth,
+    private tasksFacade: TasksFacade,
   ) {
     const user = this.auth.currentUser;
     if (user) {
@@ -28,13 +30,11 @@ export class TasksComponent {
     }
   }
 
-  toggleDone(task: Task) {
-    this.taskService.updateTask(task.id!, { done: !task.done }).catch((error) => {
-      console.error('Erreur lors de la mise à jour du statut de la tâche :', error);
-    });
+  public toggleDone(task: Task) {
+    this.tasksFacade.toggleDone(task);
   }
 
-  editTask(task: Task) {
+  public editTask(task: Task) {
     const newTitle = prompt('Modifier le titre de la tâche :', task.title);
     const newDescription = prompt('Modifier la description de la tâche :', task.description);
 
@@ -47,7 +47,7 @@ export class TasksComponent {
     }
   }
 
-  addTask(newTask: { title: string; description: string; atDate: Date }) {
+  public addTask(newTask: NewTask) {
     const user = this.auth.currentUser;
     if (user) {
       const task: Task = {
@@ -55,15 +55,11 @@ export class TasksComponent {
         done: false,
         userUID: user.uid,
       };
-      this.taskService.addTask(task).catch((error) => {
-        console.error('Erreur lors de l’ajout de la tâche :', error);
-      });
+      this.tasksFacade.addTask(task);
     }
   }
 
-  deleteTask(taskId: string) {
-    this.taskService.deleteTask(taskId).catch((error) => {
-      console.error('Erreur lors de la suppression de la tâche :', error);
-    });
+  public deleteTask(taskId: string) {
+    this.tasksFacade.deleteTask(taskId);
   }
 }
