@@ -41,7 +41,7 @@ export class TaskService {
     const userTasksQuery = query(
       this.tasksCollection,
       where('userUID', '==', userUID),
-      orderBy('done'),
+      // orderBy('done'),
     );
     return collectionData(userTasksQuery, { idField: 'id' }).pipe(
       map((tasks: TaskResponse[]) =>
