@@ -23,29 +23,41 @@
     text-decoration: none;
   }
 }
-
-.task-logout {
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
   position: absolute;
   top: 1rem;
   right: 1rem;
   z-index: 15;
 
-  button {
-    padding: 0.4rem;
-    width: 50px;
-    height: 50px;
+  .user-page {
+    box-sizing: border-box;
+    border: 2px solid var(--red);
     border-radius: 50%;
-    svg {
-      vertical-align: bottom;
-      path {
-        transition: all 0.2s ease-in-out;
-      }
-    }
+    padding: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--red);
+    overflow: hidden;
 
     &:hover {
-      svg path {
-        fill: var(--red);
-      }
+      cursor: pointer;
+    }
+  }
+
+  app-user {
+    border: 0;
+    border-radius: 15px;
+    padding: 0;
+    &::backdrop {
+      background-color: rgba(128, 128, 128, 0.3);
+      backdrop-filter: blur(0.3rem);
     }
   }
 }

@@ -1,0 +1,6 @@
+<div class="user-info">
+  @if (user$ | async; as user) {
+    <img class="profilePicture" [src]="user.imageURL" width="250" height="250" />
+    <h1 class="username">{{ user.name }}</h1>
+  }
+</div>
