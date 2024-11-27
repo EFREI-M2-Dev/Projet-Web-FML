@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:TaskIt/presentation/view_models/profile_view_model.dart';
 
@@ -12,9 +13,13 @@ class Navbar extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Container(
-            height: 60,
+            height: 70,
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            color: Colors.blue,
+            margin: const EdgeInsets.symmetric(vertical: 20.0),
+            decoration: BoxDecoration(
+              color: Color(0xFFC96868),
+              borderRadius: BorderRadius.circular(40.0),
+            ),
             child: Center(
               child: CircularProgressIndicator(color: Colors.white),
             ),
@@ -23,9 +28,13 @@ class Navbar extends StatelessWidget {
 
         if (!snapshot.hasData || snapshot.data == null) {
           return Container(
-            height: 60,
+            height: 70,
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            color: Colors.blue,
+            decoration: BoxDecoration(
+              color: Color(0xFFC96868),
+              borderRadius: BorderRadius.circular(40.0),
+            ),
+            margin: const EdgeInsets.symmetric(vertical: 20.0),
             child: Center(
               child: Text(
                 'Error loading user data',
@@ -40,17 +49,24 @@ class Navbar extends StatelessWidget {
         final imageUrl = user['imageURL'] ?? '';
 
         return Container(
-          height: 130,
-          padding: const EdgeInsets.only(bottom: 20, top: 60),
+          height: 70,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(40.0),
+          ),
+          margin: const EdgeInsets.symmetric(vertical: 20.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 userName,
-                style: TextStyle(
-                  fontSize: 18,
+                style: GoogleFonts.kanit(
+                    textStyle: TextStyle(
+                  fontSize: 18.0,
                   fontWeight: FontWeight.bold,
-                ),
+                  color: Color(0xFF444343),
+                )),
               ),
               GestureDetector(
                 onTap: () {

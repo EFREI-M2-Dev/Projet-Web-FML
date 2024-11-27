@@ -45,12 +45,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         textStyle: TextStyle(
                           fontSize: 24.0,
                           fontWeight: FontWeight.bold,
+                          color: Color(0xFF444343)
                         ),
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 12.0),
+                    padding: EdgeInsets.all(12.0),
                     child: TextField(
                       controller: _emailController,
                       decoration: InputDecoration(
