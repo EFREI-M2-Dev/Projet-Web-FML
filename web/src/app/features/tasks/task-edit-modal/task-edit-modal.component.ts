@@ -12,6 +12,7 @@ import { Thematic } from '../../../interfaces/Thematic';
   styleUrl: './task-edit-modal.component.scss',
 })
 export class TaskEditModalComponent {
+  @Input() public isModalOpen = false;
   @Input() public task: Task = {
     title: '',
     description: '',
@@ -21,7 +22,6 @@ export class TaskEditModalComponent {
     thematic: '',
   };
 
-  public isModalOpen = false;
   public thematics: Thematic[] = [];
 
   constructor(
