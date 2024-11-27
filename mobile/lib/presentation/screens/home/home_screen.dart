@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:TaskIt/presentation/view_models/home_view_model.dart';
 
+import '../../components/header.dart';
+
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -15,6 +17,10 @@ class _HomeScreenState extends State<HomeScreen> {
     final homeViewModel = Provider.of<HomeViewModel>(context);
 
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(80.0),
+        child: Header(),
+      ),
       body: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
