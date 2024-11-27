@@ -6,10 +6,14 @@
     (change)="toggleTask()"
   />
 
-  <label class="task-item__content" [for]="'checkbox-' + task.id">
+  <label
+    class="task-item__content"
+    [ngStyle]="{ 'background-color': task.thematicColor }"
+    [for]="'checkbox-' + task.id"
+  >
     <div class="task-item__text">
       <h3>
-        {{ task.title }} {{ task.thematicLabel }} {{ task.thematicColor }} {{ task.thematic }}
+        {{ task.title }}
       </h3>
       <p>
         {{ task.description }}
