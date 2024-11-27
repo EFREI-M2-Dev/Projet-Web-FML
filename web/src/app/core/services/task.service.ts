@@ -10,6 +10,7 @@ import {
   where,
   updateDoc,
   Timestamp,
+  orderBy,
 } from '@angular/fire/firestore';
 import { map, Observable } from 'rxjs';
 import { Task, TaskDoc } from '../../interfaces/Task';
@@ -40,6 +41,7 @@ export class TaskService {
     const userTasksQuery = query(
       this.tasksCollection,
       where('userUID', '==', userUID),
+      orderBy('atDate'),
     );
 
     return collectionData(userTasksQuery, { idField: 'id' }).pipe(
@@ -60,7 +62,7 @@ export class TaskService {
 
   deleteTask(id: string): Promise<void> {
     const taskDoc = doc(this.firestore, `tasks/${id}`);
-    
+
     return deleteDoc(taskDoc);
   }
 }
