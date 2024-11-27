@@ -13,7 +13,7 @@ export class TaskCreateComponent {
   @Output() public taskAdded = new EventEmitter<NewTask>();
 
   public isModalOpen = false;
-  public newTask: NewTask = { title: '', description: '', atDate: new Date() };
+  public newTask: NewTask = { title: '', description: '', atDate: new Date(), thematic: '' };
 
   public addTask() {
     if (this.newTask.title.trim() && this.newTask.description.trim()) {
@@ -26,7 +26,7 @@ export class TaskCreateComponent {
 
   private resetModal() {
     this.isModalOpen = false;
-    this.newTask = { title: '', description: '', atDate: new Date() };
+    this.newTask = { title: '', description: '', atDate: new Date(), thematic: '' };
   }
 
   public openModal() {

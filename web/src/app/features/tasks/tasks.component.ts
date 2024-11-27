@@ -4,9 +4,11 @@ import { NewTask, Task } from '../../interfaces/Task';
 import { TaskItemComponent } from './task-item/task-item.component';
 import { Auth } from '@angular/fire/auth';
 import { TaskService } from '../../core/services/task.service';
-import { Observable } from 'rxjs';
+import { combineLatest, map, Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { TasksFacade } from './tasks.facade';
+import { ThematicService } from '../../core/services/thematic.service';
+import { Thematic } from '../../interfaces/Thematic';
 
 @Component({
   selector: 'app-tasks',
@@ -15,18 +17,38 @@ import { TasksFacade } from './tasks.facade';
   styleUrl: './tasks.component.scss',
 })
 export class TasksComponent {
-  public tasks$: Observable<Task[]>;
+  public tasksWithThematics$: Observable<Task[]>;
 
   constructor(
     private taskService: TaskService,
+    private thematicService: ThematicService,
     private auth: Auth,
     private tasksFacade: TasksFacade,
   ) {
     const user = this.auth.currentUser;
     if (user) {
-      this.tasks$ = this.taskService.getTasks(user.uid);
+      const tasks$ = this.taskService.getTasks(user.uid);
+      const thematics$ = this.thematicService.getThematics();
+
+      this.tasksWithThematics$ = combineLatest([tasks$, thematics$]).pipe(
+        map(([tasks, thematics]) => {
+          const thematicsMap = thematics.reduce(
+            (acc, thematic) => {
+              acc[thematic.id] = thematic;
+              return acc;
+            },
+            {} as { [id: string]: Thematic },
+          );
+
+          return tasks.map((task) => ({
+            ...task,
+            thematicLabel: thematicsMap[task.thematic]?.label || 'Unknown',
+            thematicColor: thematicsMap[task.thematic]?.color || '#ccc',
+          }));
+        }),
+      );
     } else {
-      this.tasks$ = new Observable();
+      this.tasksWithThematics$ = new Observable();
     }
   }
 

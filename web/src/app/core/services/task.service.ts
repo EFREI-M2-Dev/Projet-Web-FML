@@ -30,6 +30,7 @@ export class TaskService {
       done: task.done,
       atDate: Timestamp.fromDate(task.atDate),
       userUID: task.userUID,
+      thematic: 'r2nuwSaJD0oE2KUE80gw',
     };
 
     return addDoc(this.tasksCollection, taskDoc).then(() => {

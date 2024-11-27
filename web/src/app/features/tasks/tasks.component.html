@@ -6,7 +6,7 @@
     </div>
 
     <ul class="task-list__container">
-      @for (task of tasks$ | async; track $index) {
+      @for (task of tasksWithThematics$ | async; track $index) {
         <app-task-item
           [task]="task"
           (taskDeleted)="deleteTask(task.id!)"

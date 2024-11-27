@@ -7,6 +7,9 @@ export interface Task {
   done: boolean;
   atDate: Date;
   userUID: string;
+  thematic: string;
+  thematicLabel?: string;
+  thematicColor?: string;
 }
 
 export interface TaskDoc {
@@ -16,10 +19,12 @@ export interface TaskDoc {
   done: boolean;
   atDate: Timestamp;
   userUID: string;
+  thematic: string;
 }
 
 export interface NewTask {
   title: string;
   description: string;
   atDate: Date;
+  thematic: string;
 }

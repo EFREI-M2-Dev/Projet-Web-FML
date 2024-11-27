@@ -9,7 +9,7 @@
   <label class="task-item__content" [for]="'checkbox-' + task.id">
     <div class="task-item__text">
       <h3>
-        {{ task.title }}
+        {{ task.title }} {{ task.thematicLabel }} {{ task.thematicColor }} {{ task.thematic }}
       </h3>
       <p>
         {{ task.description }}
