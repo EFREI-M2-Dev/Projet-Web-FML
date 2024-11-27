@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
@@ -11,17 +11,15 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
+  private readonly auth = inject(Auth);
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+
   email: string = '';
   password: string = '';
   errorMessage: string | null = null;
 
-  constructor(
-    private auth: Auth,
-    private router: Router,
-    private route: ActivatedRoute,
-  ) {}
-
-  login() {
+  public login() {
     this.errorMessage = null;
 
     signInWithEmailAndPassword(this.auth, this.email, this.password)

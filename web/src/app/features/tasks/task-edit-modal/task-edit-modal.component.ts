@@ -1,8 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Task } from '../../../interfaces/Task';
 import { TasksFacade } from '../tasks.facade';
-import { ThematicService } from '../../../core/services/thematic.service';
 import { Thematic } from '../../../interfaces/Thematic';
 
 @Component({
@@ -11,7 +10,7 @@ import { Thematic } from '../../../interfaces/Thematic';
   templateUrl: './task-edit-modal.component.html',
   styleUrl: './task-edit-modal.component.scss',
 })
-export class TaskEditModalComponent {
+export class TaskEditModalComponent implements OnInit {
   @Input() public isModalOpen = false;
   @Input() public task: Task = {
     title: '',
@@ -22,13 +21,12 @@ export class TaskEditModalComponent {
     thematic: '',
   };
 
+  private readonly tasksFacade = inject(TasksFacade);
+
   public thematics: Thematic[] = [];
 
-  constructor(
-    private tasksFacade: TasksFacade,
-    private thematicService: ThematicService,
-  ) {
-    this.thematicService.getThematics().subscribe((thematics) => {
+  public ngOnInit(): void {
+    this.tasksFacade.getThematics().subscribe((thematics) => {
       this.thematics = thematics;
     });
   }

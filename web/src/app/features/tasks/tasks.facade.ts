@@ -1,12 +1,18 @@
 import { inject, Injectable } from '@angular/core';
 import { TaskService } from '../../core/services/task.service';
-import { NewTask, Task } from '../../interfaces/Task';
+import { Task } from '../../interfaces/Task';
+import { ThematicService } from '../../core/services/thematic.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TasksFacade {
   private readonly taskService = inject(TaskService);
+  private readonly thematicService = inject(ThematicService);
+
+  public getTasks(userUID: string) {
+    return this.taskService.getTasks(userUID);
+  }
 
   public addTask(task: Task) {
     this.taskService.addTask(task).catch((error) => {
@@ -37,5 +43,9 @@ export class TasksFacade {
     this.taskService.deleteTask(taskId).catch((error) => {
       console.error('Erreur lors de la suppression de la tâche :', error);
     });
+  }
+
+  public getThematics() {
+    return this.thematicService.getThematics();
   }
 }

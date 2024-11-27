@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FirebaseError } from 'firebase/app';
 
@@ -15,12 +15,11 @@ export class SigninComponent implements OnInit {
   private readonly formBuilder = inject(FormBuilder);
   private readonly auth = inject(Auth);
   private readonly router = inject(Router);
-  private readonly route = inject(ActivatedRoute);
 
   protected signinForm!: FormGroup;
   protected errorFirebase!: FirebaseError;
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.signinForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -35,13 +34,13 @@ export class SigninComponent implements OnInit {
     return this.signinForm.get('password');
   }
 
-  signIn() {
+  public signIn() {
     if (this.email && this.password) {
       this.signinForm.markAsPristine();
       createUserWithEmailAndPassword(this.auth, this.email.value, this.password.value)
         .then((userCredential) => {
           console.log('Utilisateur créé avec succès :', userCredential.user);
-          this.router.navigate(['/tasks']); // Redirige après l'inscription
+          this.router.navigate(['/tasks']);
         })
         .catch((error: FirebaseError) => {
           this.errorFirebase = error;

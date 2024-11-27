@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IconButtonComponent } from '../../../shared/icon-button/icon-button.component';
 import { NewTask } from '../../../interfaces/Task';
-import { ThematicService } from '../../../core/services/thematic.service';
 import { Thematic } from '../../../interfaces/Thematic';
+import { TasksFacade } from '../tasks.facade';
 
 @Component({
   selector: 'app-task-create',
@@ -11,15 +11,17 @@ import { Thematic } from '../../../interfaces/Thematic';
   templateUrl: './task-create.component.html',
   styleUrl: './task-create.component.scss',
 })
-export class TaskCreateComponent {
+export class TaskCreateComponent implements OnInit {
   @Output() public taskAdded = new EventEmitter<NewTask>();
+
+  private readonly tasksFacade = inject(TasksFacade);
 
   public isModalOpen = false;
   public newTask: NewTask = { title: '', description: '', atDate: new Date(), thematic: '' };
   public thematics: Thematic[] = [];
 
-  constructor(private thematicService: ThematicService) {
-    this.thematicService.getThematics().subscribe((thematics) => {
+  public ngOnInit(): void {
+    this.tasksFacade.getThematics().subscribe((thematics) => {
       this.thematics = thematics;
     });
   }

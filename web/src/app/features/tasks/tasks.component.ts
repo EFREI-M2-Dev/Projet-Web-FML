@@ -1,13 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { TaskCreateComponent } from './task-create/task-create.component';
 import { NewTask, Task } from '../../interfaces/Task';
 import { TaskItemComponent } from './task-item/task-item.component';
 import { Auth } from '@angular/fire/auth';
-import { TaskService } from '../../core/services/task.service';
 import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { TasksFacade } from './tasks.facade';
-import { ThematicService } from '../../core/services/thematic.service';
 import { Thematic } from '../../interfaces/Thematic';
 
 @Component({
@@ -16,23 +14,21 @@ import { Thematic } from '../../interfaces/Thematic';
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.scss',
 })
-export class TasksComponent {
-  public tasksWithThematics$: Observable<Task[]>;
+export class TasksComponent implements OnInit {
+  private readonly tasksFacade = inject(TasksFacade);
+  private readonly auth = inject(Auth);
+
+  public tasksWithThematics$!: Observable<Task[]>;
   public date: Date = new Date();
   private selectedDate$ = new BehaviorSubject<Date>(this.date);
-  public isTaskListEmpty$: Observable<boolean>;
+  public isTaskListEmpty$!: Observable<boolean>;
 
-  constructor(
-    private taskService: TaskService,
-    private thematicService: ThematicService,
-    private auth: Auth,
-    private tasksFacade: TasksFacade,
-  ) {
+  public ngOnInit(): void {
     const user = this.auth.currentUser;
 
     if (user) {
-      const tasks$ = this.taskService.getTasks(user.uid);
-      const thematics$ = this.thematicService.getThematics();
+      const tasks$ = this.tasksFacade.getTasks(user.uid);
+      const thematics$ = this.tasksFacade.getThematics();
 
       this.tasksWithThematics$ = combineLatest([tasks$, thematics$, this.selectedDate$]).pipe(
         map(([tasks, thematics, selectedDate]) => {
