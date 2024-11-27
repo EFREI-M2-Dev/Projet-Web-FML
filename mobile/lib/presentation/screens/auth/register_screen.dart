@@ -69,7 +69,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(40.0),
                         ),
-                        hintText: 'Password',
+                        hintText: 'Mot de passe',
                       ),
                       obscureText: true,
                     ),
@@ -95,14 +95,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         );
                       }
                     },
-                    child: Text('Register'),
+                    child: Text("S'inscrire"),
                   ),
                   SizedBox(height: 20),
                   TextButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/login');
                     },
-                    child: Text("Already have an account? Login"),
+                    child: Text("Déjà un compte? Connectez-vous!"),
                   ),
                 ],
               ),
