@@ -56,10 +56,16 @@ class MyApp extends StatelessWidget {
         inputDecorationTheme: InputDecorationTheme(
           hintStyle: GoogleFonts.kanit(color: Colors.black),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(40.0),
             borderSide: BorderSide(color: Color(0xFFC96868)),
           ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.black),
+          )
         ),
+        datePickerTheme: DatePickerThemeData(
+          backgroundColor: Colors.white,
+          headerBackgroundColor: Color(0xFFC96868),
+        )
       ),
       onGenerateRoute: (settings) {
         switch (settings.name) {

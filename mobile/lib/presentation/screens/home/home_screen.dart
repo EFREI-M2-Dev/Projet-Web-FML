@@ -36,13 +36,26 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16.0),
                 ),
-                child: EasyDateTimeLine(
-                  initialDate: DateTime.now(),
-                  onDateChange: (selectedDate) {
-                    homeViewModel.changeFilterDate(selectedDate);
-                  },
-                  activeColor: Color(0xFFC96868),
-                ),
+                child: EasyTheme(
+                  data: EasyTheme.of(context).copyWithState(
+                    selectedCurrentDayTheme: const DayThemeData(
+                      backgroundColor: Colors.teal,
+                    ),
+                    unselectedCurrentDayTheme: const DayThemeData(
+                      backgroundColor: Colors.white,
+                    ),
+                    disabledCurrentDayTheme: DayThemeData(
+                      backgroundColor: Colors.grey.shade100,
+                    ),
+                  ),
+                  child: EasyDateTimeLine(
+                    initialDate: DateTime.now(),
+                    onDateChange: (selectedDate) {
+                      homeViewModel.changeFilterDate(selectedDate);
+                    },
+                    activeColor: Color(0xFFC96868),
+                  ),
+                )
               ),
               SizedBox(height: 20.0),
               Expanded(
