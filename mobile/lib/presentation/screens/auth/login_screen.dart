@@ -70,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(40.0),
                           ),
-                          hintText: 'Password'),
+                          hintText: 'Mot de passe'),
                       obscureText: true,
                     ),
                   ),
@@ -94,14 +94,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         );
                       }
                     },
-                    child: Text('Login'),
+                    child: Text('Se connecter'),
                   ),
                   SizedBox(height: 20),
                   TextButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/register');
                     },
-                    child: Text("Don't have an account? Register"),
+                    child: Text("Pas de compte ? Inscrivez-vous"),
                   ),
                 ],
               ),
