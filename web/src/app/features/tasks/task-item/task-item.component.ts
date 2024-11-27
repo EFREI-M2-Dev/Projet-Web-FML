@@ -14,8 +14,6 @@ export class TaskItemComponent {
   @Output() public taskDeleted = new EventEmitter<string>();
   @Output() public taskToggled = new EventEmitter<Task>();
 
-  public isModalOpen = false;
-
   public toggleTask() {
     this.taskToggled.emit(this.task);
   }
@@ -25,9 +23,5 @@ export class TaskItemComponent {
     if (isConfirmed) {
       this.taskDeleted.emit(this.task.id);
     }
-  }
-
-  public onEdit() {
-    this.isModalOpen = !this.isModalOpen;
   }
 }

@@ -21,7 +21,7 @@
     </div>
 
     <span class="task-item__content__actions">
-      <button (click)="onEdit()" class="task-item__content__edit">
+      <!-- <button (click)="onEdit()" class="task-item__content__edit">
         <svg
           width="24"
           height="24"
@@ -34,7 +34,8 @@
             fill="black"
           />
         </svg>
-      </button>
+      </button> -->
+      <app-task-edit-modal [task]="task" />
       <button (click)="deleteTask()" class="task-item__content__delete">
         <svg
           width="24"
@@ -57,5 +58,3 @@
     </span>
   </label>
 </div>
-
-<app-task-edit-modal [task]="task" [isModalOpen]="isModalOpen" />
