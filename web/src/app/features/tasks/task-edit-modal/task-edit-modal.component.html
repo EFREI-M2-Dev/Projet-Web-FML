@@ -5,16 +5,28 @@
       <div class="add-task__modal__inputs">
         <label for="title">Titre</label>
         <input type="text" id="title" [(ngModel)]="task.title" placeholder="Titre" />
+
         <label for="description">Description</label>
         <textarea
           type="text"
           id="description"
           [(ngModel)]="task.description"
-          placeholder="Desc"
+          placeholder="Description"
         ></textarea>
+
         <label for="date">Date</label>
-        <input type="date" id="date" [(ngModel)]="task.atDate" placeholder="Titre" />
+        <input type="date" id="date" [(ngModel)]="task.atDate" placeholder="Date" />
+
+        <label for="thematic">Thématique</label>
+        <select id="thematic" [(ngModel)]="task.thematic">
+          @for (thematic of thematics; track $index) {
+            <option [value]="thematic.id">
+              {{ thematic.label }}
+            </option>
+          }
+        </select>
       </div>
+
       <button class="add-task__modal__close" (click)="closeModal()">
         <svg
           width="14"
