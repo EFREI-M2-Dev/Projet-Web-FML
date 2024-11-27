@@ -1,6 +1,6 @@
 .signin {
   display: flex;
-  height: 100vh;
+  height: calc(100vh - var(--header-height) - 2rem);
 
   &__container {
     background-color: var(--white);
