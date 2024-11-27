@@ -136,7 +136,7 @@ class AddTaskScreen extends StatelessWidget {
                         try {
                           await viewModel.saveTask(taskId);
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Task added successfully!')),
+                            SnackBar(content: Text('Tâche ajoutée!')),
                           );
                           Navigator.pop(context);
                         } catch (e) {
@@ -148,7 +148,7 @@ class AddTaskScreen extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(double.infinity, 50),
                       ),
-                      child: Text('Save Task'),
+                      child: Text('Enregistrer cette tâche'),
                     ),
                   ],
                 ),
