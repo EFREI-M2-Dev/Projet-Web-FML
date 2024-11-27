@@ -22,7 +22,12 @@ export class TasksFacade {
 
   public editTask(task: Task) {
     this.taskService
-      .updateTask(task.id!, { title: task.title, description: task.description })
+      .updateTask(task.id!, {
+        title: task.title,
+        description: task.description,
+        atDate: new Date(task.atDate),
+        thematic: task.thematic,
+      })
       .catch((error) => {
         console.error('Erreur lors de la mise à jour de la tâche :', error);
       });
