@@ -20,8 +20,8 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: Color(0xFFfff4ea),
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(80.0), // Adjust the height as needed
-        child: Header(), // Include the Header here
+        preferredSize: Size.fromHeight(80.0),
+        child: Header(),
       ),
       body: Center(
         child: SingleChildScrollView(

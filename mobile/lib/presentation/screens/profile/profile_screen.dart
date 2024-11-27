@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:TaskIt/presentation/view_models/profile_view_model.dart';
+
+import '../../components/header.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -108,8 +111,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFF3EADD),
       appBar: AppBar(
-        title: Text('Edit Profile'),
+        title: Text(
+          'Edit Profile',
+          style: GoogleFonts.poppins(
+              textStyle: TextStyle(
+            fontSize: 24.0,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFC96868), // Updated text color
+          )),
+        ),
+        backgroundColor: Color(0xFFfbdfa1),
       ),
       body: _isLoading
           ? Center(child: CircularProgressIndicator())
@@ -119,26 +132,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    GestureDetector(
-                      onTap: _pickImage,
-                      child: CircleAvatar(
-                        radius: 50,
-                        backgroundImage: _localImageFile != null
-                            ? FileImage(_localImageFile!)
-                            : _firebaseImageUrl != null
-                                ? NetworkImage(_firebaseImageUrl!)
-                                : AssetImage('assets/pp_default.png')
-                                    as ImageProvider,
-                        child:
-                            _localImageFile == null && _firebaseImageUrl == null
-                                ? Icon(Icons.camera_alt, size: 30)
-                                : null,
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 43.0),
+                      child: GestureDetector(
+                        onTap: _pickImage,
+                        child: CircleAvatar(
+                          radius: 80,
+                          backgroundImage: _localImageFile != null
+                              ? FileImage(_localImageFile!)
+                              : _firebaseImageUrl != null
+                              ? NetworkImage(_firebaseImageUrl!)
+                              : AssetImage('assets/pp_default.png')
+                          as ImageProvider,
+                          child:
+                          _localImageFile == null && _firebaseImageUrl == null
+                              ? Icon(Icons.camera_alt, size: 120)
+                              : null,
+                        ),
                       ),
                     ),
                     SizedBox(height: 20),
                     TextFormField(
                       controller: _nameController,
-                      decoration: InputDecoration(labelText: 'Name'),
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(40.0),
+                          ),
+                          hintText: 'Name'),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your name';
@@ -150,7 +170,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       },
                     ),
                     SizedBox(height: 20),
-                    ElevatedButton(
+                    FilledButton(
+                      style: FilledButton.styleFrom(
+                        minimumSize: Size(500.0, 50.0),
+                      ),
                       onPressed: _isFormChanged ? _saveProfile : null,
                       child: Text('Save Changes'),
                     ),
