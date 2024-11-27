@@ -155,7 +155,10 @@ body {
   font-size: 1rem;
   font-weight: 500;
   width: 100%;
+}
 
+.form-group,
+.task-list__header {
   input,
   select,
   textarea {

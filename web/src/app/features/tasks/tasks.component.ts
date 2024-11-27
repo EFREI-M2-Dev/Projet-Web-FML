@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TaskCreateComponent } from './task-create/task-create.component';
 import { NewTask, Task } from '../../interfaces/Task';
 import { TaskItemComponent } from './task-item/task-item.component';
 import { Auth } from '@angular/fire/auth';
 import { TaskService } from '../../core/services/task.service';
-import { combineLatest, map, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { TasksFacade } from './tasks.facade';
 import { ThematicService } from '../../core/services/thematic.service';
@@ -18,6 +18,9 @@ import { Thematic } from '../../interfaces/Thematic';
 })
 export class TasksComponent {
   public tasksWithThematics$: Observable<Task[]>;
+  public date: Date = new Date();
+  private selectedDate$ = new BehaviorSubject<Date>(this.date);
+  public isTaskListEmpty$: Observable<boolean>;
 
   constructor(
     private taskService: TaskService,
@@ -26,12 +29,13 @@ export class TasksComponent {
     private tasksFacade: TasksFacade,
   ) {
     const user = this.auth.currentUser;
+
     if (user) {
       const tasks$ = this.taskService.getTasks(user.uid);
       const thematics$ = this.thematicService.getThematics();
 
-      this.tasksWithThematics$ = combineLatest([tasks$, thematics$]).pipe(
-        map(([tasks, thematics]) => {
+      this.tasksWithThematics$ = combineLatest([tasks$, thematics$, this.selectedDate$]).pipe(
+        map(([tasks, thematics, selectedDate]) => {
           const thematicsMap = thematics.reduce(
             (acc, thematic) => {
               acc[thematic.id] = thematic;
@@ -40,16 +44,50 @@ export class TasksComponent {
             {} as { [id: string]: Thematic },
           );
 
-          return tasks.map((task) => ({
-            ...task,
-            thematicLabel: thematicsMap[task.thematic]?.label || 'Unknown',
-            thematicColor: thematicsMap[task.thematic]?.color || '#ccc',
-          }));
+          return tasks
+            .filter((task) => this.isSameDate(task.atDate, selectedDate))
+            .map((task) => ({
+              ...task,
+              thematicLabel: thematicsMap[task.thematic]?.label || 'Unknown',
+              thematicColor: thematicsMap[task.thematic]?.color || '#ccc',
+            }));
         }),
       );
+
+      console.log(this.tasksWithThematics$);
+      this.isTaskListEmpty$ = this.tasksWithThematics$.pipe(map((tasks) => tasks.length === 0));
     } else {
       this.tasksWithThematics$ = new Observable();
+      this.isTaskListEmpty$ = new Observable((observer) => observer.next(true));
     }
+  }
+
+  public onDateChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const selectedDate = input.valueAsDate;
+    console.log('Selected Date:', selectedDate);
+    if (selectedDate) {
+      this.setDate(selectedDate);
+    } else {
+      console.error('Invalid date selected');
+    }
+  }
+
+  public setDate(date: Date) {
+    if (date) {
+      this.selectedDate$.next(date);
+    } else {
+      console.error('Invalid date passed to setDate');
+    }
+  }
+
+  private isSameDate(taskDate: string | Date, selectedDate: Date): boolean {
+    const taskDateObj = new Date(taskDate);
+    return (
+      taskDateObj.getFullYear() === selectedDate.getFullYear() &&
+      taskDateObj.getMonth() === selectedDate.getMonth() &&
+      taskDateObj.getDate() === selectedDate.getDate()
+    );
   }
 
   public toggleDone(task: Task) {
