@@ -3,6 +3,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class HomeViewModel with ChangeNotifier {
+  DateTime? _filterDate;
+
+  // Méthode pour mettre à jour la date de filtre
+  Future<void> changeFilterDate(DateTime date) async {
+    _filterDate = date;
+    notifyListeners();
+  }
+
   Stream<List<Map<String, dynamic>>> get tasksStream {
     final user = FirebaseAuth.instance.currentUser;
 
@@ -10,11 +18,24 @@ class HomeViewModel with ChangeNotifier {
       return const Stream.empty();
     }
 
-    return FirebaseFirestore.instance
+    var query = FirebaseFirestore.instance
         .collection('tasks')
-        .where('userUID', isEqualTo: user.uid)
-        .snapshots()
-        .asyncMap((snapshot) async {
+        .where('userUID', isEqualTo: user.uid);
+
+    if (_filterDate != null) {
+      final startOfDay = DateTime(
+        _filterDate!.year,
+        _filterDate!.month,
+        _filterDate!.day,
+      );
+      final endOfDay = startOfDay.add(const Duration(days: 1));
+
+      query = query
+          .where('atDate', isGreaterThanOrEqualTo: startOfDay)
+          .where('atDate', isLessThan: endOfDay);
+    }
+
+    return query.snapshots().asyncMap((snapshot) async {
       final tasks = snapshot.docs.map((doc) {
         return {
           'id': doc.id,
@@ -38,8 +59,6 @@ class HomeViewModel with ChangeNotifier {
           }
         }
       }
-
-      print(tasks);
 
       return tasks;
     });
