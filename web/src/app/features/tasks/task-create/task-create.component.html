@@ -33,6 +33,7 @@
 
         <label for="thematic">Thématique</label>
         <select id="thematic" [(ngModel)]="newTask.thematic">
+          <option value="" disabled selected hidden>Choisir une thématique</option>
           @for (thematic of thematics; track $index) {
             <option [value]="thematic.id">
               {{ thematic.label }}

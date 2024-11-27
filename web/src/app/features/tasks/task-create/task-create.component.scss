@@ -29,7 +29,8 @@
       }
     }
 
-    &__inputs {
+    &__inputs,
+    &__selects {
       display: flex;
       flex-direction: column;
       gap: 1rem;
@@ -39,6 +40,10 @@
       input {
         border-radius: 15px;
         resize: none;
+      }
+
+      select {
+        border-radius: 15px;
       }
     }
 
