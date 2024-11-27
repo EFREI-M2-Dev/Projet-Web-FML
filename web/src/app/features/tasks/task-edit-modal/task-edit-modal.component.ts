@@ -17,6 +17,7 @@ export class TaskEditModalComponent {
     done: false,
     atDate: new Date(),
     userUID: '',
+    thematic: '',
   };
 
   private tasksFacade = inject(TasksFacade);
