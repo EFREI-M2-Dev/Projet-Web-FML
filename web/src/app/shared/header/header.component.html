@@ -59,13 +59,12 @@
   </a>
   @if (isLogged()) {
     <div class="buttons">
-      <button class="user-page" popovertarget="mypopover">
-        @if (profilePicture$ | async; as profilePicture) {
+      @if (profilePicture$ | async; as profilePicture) {
+        <button class="user-page" popovertarget="mypopover">
           <img [src]="profilePicture" width="50px" height="50px" />
-        }
-      </button>
-      <app-user id="mypopover" popover> </app-user>
-
+        </button>
+      }
+      <app-user id="mypopover" popover #popover> </app-user>
       <app-icon-button class="task-logout" (clicked)="logout()">
         <svg
           width="24"

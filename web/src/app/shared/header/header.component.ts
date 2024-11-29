@@ -1,4 +1,12 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  inject,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Auth, signOut } from '@angular/fire/auth';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
@@ -13,9 +21,11 @@ import { UserComponent } from '../../features/user/user.component';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, AfterViewInit {
   private readonly userService = inject(UserService);
   protected profilePicture$!: Observable<string>;
+
+  @ViewChild('popover') popover!: ElementRef;
 
   constructor(
     private auth: Auth,
@@ -25,6 +35,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.profilePicture$ = this.userService.getURLImage();
   }
+
+  ngAfterViewInit(): void {}
 
   logout() {
     signOut(this.auth)
