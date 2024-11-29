@@ -1,6 +1,44 @@
 <div class="user-info">
   @if (user$ | async; as user) {
-    <img class="profilePicture" [src]="user.imageURL" width="250" height="250" />
+    <div class="picture-container">
+      <button class="updatePictureBtn" (click)="displayForm()">
+        <div class="svg-container" #svgContainer>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.059 9.02L14.979 9.94L5.91902 19H4.99902V18.08L14.059 9.02ZM17.659 3C17.409 3 17.149 3.1 16.959 3.29L15.129 5.12L18.879 8.87L20.709 7.04C21.099 6.65 21.099 6.02 20.709 5.63L18.369 3.29C18.169 3.09 17.919 3 17.659 3ZM14.059 6.19L2.99902 17.25V21H6.74902L17.809 9.94L14.059 6.19Z"
+              fill="black"
+            />
+          </svg>
+        </div>
+        <img class="profilePicture" [src]="user.imageURL" />
+      </button>
+      @if (!!newPicture && newPicture.value != '') {
+        <img class="profilePicture-new" [src]="newPicture.value" />
+      }
+    </div>
+    <form class="form-group" [formGroup]="profilePictureForm" #formPicture>
+      <input formControlName="newPicture" />
+      <app-icon-button (clicked)="submit()">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M11.293 17.293L12.707 18.707L19.414 12L12.707 5.29297L11.293 6.70697L15.586 11H6V13H15.586L11.293 17.293Z"
+            fill="black"
+          />
+        </svg>
+      </app-icon-button>
+    </form>
     <h1 class="username">{{ user.name }}</h1>
   }
 </div>
