@@ -1,1 +1,259 @@
 /* You can add global styles to this file, and also import other style files */
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+html,
+body {
+  background-color: #fff4ea;
+}
+
+:root {
+  --red: #c96868;
+  --white: #fff;
+  --black: #444343;
+  --alert: #f00;
+  --header-height: 110px;
+}
+
+*::selection {
+  background-color: var(--red);
+  color: var(--white);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Poppins', sans-serif;
+  align-items: flex-start;
+  font-size: 1rem;
+  font-weight: 500;
+  width: 100%;
+}
+
+.form-group,
+.task-list__header {
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: 'Kanit', sans-serif;
+    font-size: 1rem;
+    box-sizing: border-box;
+    border-radius: 40px;
+
+    &:focus {
+      outline: none;
+      border-color: var(--red);
+    }
+
+    &::placeholder {
+      color: grey;
+      font-weight: 300;
+    }
+
+    &.alert {
+      border-color: var(--alert);
+    }
+  }
+
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+
+  small {
+    margin-left: 5%;
+    font-size: 0.9rem;
+    &.alert {
+      color: var(--alert);
+    }
+  }
+}
+
+input[type='checkbox'] {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='1' y='1' width='26' height='26' rx='5' fill='white'/%3E%3Crect x='1' y='1' width='26' height='26' rx='5' stroke='%23DFDCDC' stroke-width='2'/%3E%3C/svg%3E%0A");
+  width: 28px;
+  height: 28px;
+  transition: all 0.2s ease-in-out;
+
+  &:checked {
+    background-image: url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='1' y='1' width='26' height='26' rx='5' fill='%2380ADB6'/%3E%3Crect x='1' y='1' width='26' height='26' rx='5' stroke='%2380ADB6' stroke-width='2'/%3E%3Cpath d='M7 15.6667L10.25 19L20 9' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+    height: 28px;
+  }
+}
+
+h2 {
+  font-family: 'Poppins', sans-serif;
+  color: var(--black);
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.btn {
+  display: inline-block;
+  background-color: var(--red);
+  padding: 1rem;
+  color: var(--white);
+  border-radius: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  width: 100%;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  border: 2px solid var(--red);
+  font-size: 1rem;
+  box-sizing: border-box;
+  text-align: center;
+  text-decoration: none;
+
+  &:hover:not([disabled]) {
+    background-color: var(--white);
+    color: var(--red);
+    border-color: var(--red);
+  }
+
+  &[disabled] {
+    opacity: 0.25;
+    &:hover {
+      cursor: default;
+    }
+  }
+
+  &-secondary {
+    background-color: var(--white);
+    color: var(--red);
+    border-color: var(--red);
+  }
+}
