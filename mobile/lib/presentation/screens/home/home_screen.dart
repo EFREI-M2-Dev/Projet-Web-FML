@@ -31,32 +31,32 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               const Navbar(),
               Container(
-                padding: EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-                child: EasyTheme(
-                  data: EasyTheme.of(context).copyWithState(
-                    selectedCurrentDayTheme: const DayThemeData(
-                      backgroundColor: Colors.teal,
-                    ),
-                    unselectedCurrentDayTheme: const DayThemeData(
-                      backgroundColor: Colors.white,
-                    ),
-                    disabledCurrentDayTheme: DayThemeData(
-                      backgroundColor: Colors.grey.shade100,
-                    ),
+                  padding: EdgeInsets.all(16.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16.0),
                   ),
-                  child: EasyDateTimeLine(
-                    initialDate: DateTime.now(),
-                    onDateChange: (selectedDate) {
-                      homeViewModel.changeFilterDate(selectedDate);
-                    },
-                    activeColor: Color(0xFFC96868),
-                  ),
-                )
-              ),
+                  child: EasyTheme(
+                    data: EasyTheme.of(context).copyWithState(
+                      selectedCurrentDayTheme: const DayThemeData(
+                        backgroundColor: Colors.teal,
+                      ),
+                      unselectedCurrentDayTheme: const DayThemeData(
+                        backgroundColor: Colors.white,
+                      ),
+                      disabledCurrentDayTheme: DayThemeData(
+                        backgroundColor: Colors.grey.shade100,
+                      ),
+                    ),
+                    child: EasyDateTimeLine(
+                      initialDate: DateTime.now(),
+                      onDateChange: (selectedDate) {
+                        homeViewModel.changeFilterDate(selectedDate);
+                      },
+                      activeColor: Color(0xFFC96868),
+                      locale: "fr",
+                    ),
+                  )),
               SizedBox(height: 20.0),
               Expanded(
                 child: Container(
@@ -122,9 +122,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                 return SizedBox(
                                   child: Card(
-                                    color: task['thematicData']?["color"] != null
+                                    color: task['thematicData']?["color"] !=
+                                            null
                                         ? Color(0xFF000000 +
-                                        int.parse(task['thematicData']["color"].substring(1, 7), radix: 16))
+                                            int.parse(
+                                                task['thematicData']["color"]
+                                                    .substring(1, 7),
+                                                radix: 16))
                                         : Color(0x80E0E0E0),
                                     shadowColor: Colors.transparent,
                                     elevation: 0,
@@ -220,10 +224,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     ),
                                                     content: Text(
                                                       'Êtes-vous sûr(e) de vouloir supprimer cette tâche ?',
-                                                      style:
-                                                          GoogleFonts.kanit(
-                                                              textStyle:
-                                                                  TextStyle(
+                                                      style: GoogleFonts.kanit(
+                                                          textStyle: TextStyle(
                                                         fontWeight:
                                                             FontWeight.w400,
                                                         fontSize: 16.6,

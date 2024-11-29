@@ -43,4 +43,8 @@ class UserService {
         await _firestore.collection('users').doc(user.uid).get();
     return docSnapshot.data();
   }
+
+  Future<void> signOut() async {
+    await _auth.signOut();
+  }
 }

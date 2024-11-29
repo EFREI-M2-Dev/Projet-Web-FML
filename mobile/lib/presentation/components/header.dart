@@ -7,7 +7,7 @@ class Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Color(0xFFfbdfa1), // Updated background color
-      padding: EdgeInsets.all(16.0),
+      padding: EdgeInsets.fromLTRB(16.0, 60.0, 16.0, 16.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -19,12 +19,11 @@ class Header extends StatelessWidget {
           Text(
             'TASK-IT',
             style: GoogleFonts.kanit(
-              textStyle: TextStyle(
-                fontSize: 36.0,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFFC96868), // Updated text color
-              )
-            ),
+                textStyle: TextStyle(
+              fontSize: 36.0,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFFC96868), // Updated text color
+            )),
           ),
         ],
       ),

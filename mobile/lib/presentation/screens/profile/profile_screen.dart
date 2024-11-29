@@ -114,7 +114,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       backgroundColor: Color(0xFFF3EADD),
       appBar: AppBar(
         title: Text(
-          'Edit Profile',
+          'Profil',
           style: GoogleFonts.poppins(
               textStyle: TextStyle(
             fontSize: 24.0,
@@ -141,11 +141,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           backgroundImage: _localImageFile != null
                               ? FileImage(_localImageFile!)
                               : _firebaseImageUrl != null
-                              ? NetworkImage(_firebaseImageUrl!)
-                              : AssetImage('assets/pp_default.png')
-                          as ImageProvider,
-                          child:
-                          _localImageFile == null && _firebaseImageUrl == null
+                                  ? NetworkImage(_firebaseImageUrl!)
+                                  : AssetImage('assets/pp_default.png')
+                                      as ImageProvider,
+                          child: _localImageFile == null &&
+                                  _firebaseImageUrl == null
                               ? Icon(Icons.camera_alt, size: 120)
                               : null,
                         ),
@@ -175,7 +175,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         minimumSize: Size(500.0, 50.0),
                       ),
                       onPressed: _isFormChanged ? _saveProfile : null,
-                      child: Text('Save Changes'),
+                      child: Text('Appliquer modifications'),
+                    ),
+                    SizedBox(height: 20),
+                    FilledButton(
+                      style: FilledButton.styleFrom(
+                        minimumSize: Size(500.0, 50.0),
+                      ),
+                      onPressed: () {
+                        final userService = context.read<UserService>();
+                        userService.signOut();
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, '/login', (route) => false);
+                      },
+                      child: Text('Déconnexion'),
                     ),
                   ],
                 ),
