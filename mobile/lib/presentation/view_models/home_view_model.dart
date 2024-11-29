@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class HomeViewModel with ChangeNotifier {
-  DateTime? _filterDate;
+  DateTime? _filterDate = DateTime.now();
 
   // Méthode pour mettre à jour la date de filtre
   Future<void> changeFilterDate(DateTime date) async {
