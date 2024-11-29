@@ -1,0 +1,63 @@
+.header {
+  background-color: #fbdfa1;
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  border-radius: 0 0 60px 60px;
+  margin: auto auto 2rem;
+  width: 100vw;
+  box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  &__title {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 2rem;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    color: var(--red);
+    align-items: center;
+    text-decoration: none;
+  }
+}
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 15;
+
+  .user-page {
+    box-sizing: border-box;
+    border: 2px solid var(--red);
+    border-radius: 50%;
+    padding: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--red);
+    overflow: hidden;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  app-user {
+    border: 0;
+    border-radius: 15px;
+    padding: 0;
+    &::backdrop {
+      background-color: rgba(128, 128, 128, 0.3);
+      backdrop-filter: blur(0.3rem);
+    }
+  }
+}

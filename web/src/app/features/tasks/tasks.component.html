@@ -1,0 +1,56 @@
+<!-- <div class="task-list">
+  <div class="task-list__content">
+    <div class="task-list__header">
+      <h2>Ma liste de tâches</h2>
+      <div class="task-list__header__action">
+        <input type="date" [value]="date | date: 'yyyy-MM-dd'" (change)="onDateChange($event)" />
+        <app-task-create (taskAdded)="addTask($event)"></app-task-create>
+      </div>
+    </div>
+
+    <ng-container *ngIf="tasksWithThematics$ | async as tasks">
+      <div *ngIf="tasks.length === 0; else taskList">
+        <p>Aucune tâche prévue pour cette date.</p>
+      </div>
+
+      <ng-template #taskList>
+        <ul class="task-list__container">
+          <app-task-item
+            *ngFor="let task of tasks; trackBy: trackByTask"
+            [task]="task"
+            (taskDeleted)="deleteTask(task.id!)"
+            (taskToggled)="toggleDone($event)"
+          >
+          </app-task-item>
+        </ul>
+      </ng-template>
+    </ng-container>
+  </div>
+</div> -->
+
+<div class="task-list">
+  <div class="task-list__content">
+    <div class="task-list__header">
+      <h2>Ma liste de tâches</h2>
+      <div class="task-list__header__actions">
+        <input type="date" [value]="date | date: 'yyyy-MM-dd'" (change)="onDateChange($event)" />
+        <app-task-create (taskAdded)="addTask($event)"></app-task-create>
+      </div>
+    </div>
+
+    <ul class="task-list__container">
+      <div class="task-list__empty" *ngIf="(tasksWithThematics$ | async)?.length === 0">
+        <p>Aucune tâche prévue pour cette date.</p>
+      </div>
+
+      @for (task of tasksWithThematics$ | async; track $index) {
+        <app-task-item
+          [task]="task"
+          (taskDeleted)="deleteTask(task.id!)"
+          (taskToggled)="toggleDone($event)"
+        >
+        </app-task-item>
+      }
+    </ul>
+  </div>
+</div>
