@@ -4,6 +4,8 @@ import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FirebaseError } from 'firebase/app';
+import { doc, setDoc } from 'firebase/firestore';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
   selector: 'app-signin',
@@ -15,6 +17,7 @@ export class SigninComponent implements OnInit {
   private readonly formBuilder = inject(FormBuilder);
   private readonly auth = inject(Auth);
   private readonly router = inject(Router);
+  private readonly userService = inject(UserService);
 
   protected signinForm!: FormGroup;
   protected errorFirebase!: FirebaseError;
@@ -40,6 +43,7 @@ export class SigninComponent implements OnInit {
       createUserWithEmailAndPassword(this.auth, this.email.value, this.password.value)
         .then((userCredential) => {
           console.log('Utilisateur créé avec succès :', userCredential.user);
+          this.userService.createUserDocumentWithId(userCredential.user.uid, 'https://risibank.fr/cache/medias/0/2/269/26952/full.gif', this.email?.value);
           this.router.navigate(['/tasks']);
         })
         .catch((error: FirebaseError) => {
